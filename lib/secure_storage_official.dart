@@ -6,22 +6,18 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-void main() {
-  runApp(const MaterialApp(home: ItemsWidget()));
-}
-
-class ItemsWidget extends StatefulWidget {
-  const ItemsWidget({Key? key}) : super(key: key);
+class SecureStorageOfficial extends StatefulWidget {
+  const SecureStorageOfficial({Key? key}) : super(key: key);
 
   @override
-  ItemsWidgetState createState() => ItemsWidgetState();
+  SecureStorageOfficialState createState() => SecureStorageOfficialState();
 }
 
 enum _Actions { deleteAll }
 
 enum _ItemActions { delete, edit, containsKey, read }
 
-class ItemsWidgetState extends State<ItemsWidget> {
+class SecureStorageOfficialState extends State<SecureStorageOfficial> {
   final _storage = const FlutterSecureStorage();
   final _accountNameController =
       TextEditingController(text: 'flutter_secure_storage_service');

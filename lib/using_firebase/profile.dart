@@ -5,7 +5,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'login.dart';
 
 class Profile extends StatefulWidget {
-  Profile({Key? key}) : super(key: key);
+  const Profile({Key? key}) : super(key: key);
 
   @override
   _ProfileState createState() => _ProfileState();
@@ -25,7 +25,7 @@ class _ProfileState extends State<Profile> {
       await user!.sendEmailVerification();
       print('Verification Email has been sent');
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           backgroundColor: Colors.orangeAccent,
           content: Text(
             'Verification Email has been sent',
@@ -43,7 +43,7 @@ class _ProfileState extends State<Profile> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text("Welcome User"),
+            const Text("Welcome User"),
             ElevatedButton(
               onPressed: () async => {
                 await FirebaseAuth.instance.signOut(),
@@ -51,44 +51,44 @@ class _ProfileState extends State<Profile> {
                 Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => Login(),
+                      builder: (context) => const Login(),
                     ),
                     (route) => false)
               },
-              child: Text('Logout'),
+              child: const Text('Logout'),
               style: ElevatedButton.styleFrom(primary: Colors.blueGrey),
             )
           ],
         ),
       ),
       body: Container(
-        margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+        margin: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
         child: Column(
           children: [
             Text(
               'User ID: $uid',
-              style: TextStyle(fontSize: 18.0),
+              style: const TextStyle(fontSize: 18.0),
             ),
             Row(
               children: [
                 Text(
                   'Email: $email',
-                  style: TextStyle(fontSize: 18.0),
+                  style: const TextStyle(fontSize: 10.0),
                 ),
                 user!.emailVerified
-                    ? Text(
+                    ? const Text(
                         'verified',
                         style:
                             TextStyle(fontSize: 18.0, color: Colors.blueGrey),
                       )
                     : TextButton(
                         onPressed: () => {verifyEmail()},
-                        child: Text('Verify Email'))
+                        child: const Text('Verify Email'))
               ],
             ),
             Text(
               'Created: $creationTime',
-              style: TextStyle(fontSize: 18.0),
+              style: const TextStyle(fontSize: 18.0),
             ),
           ],
         ),

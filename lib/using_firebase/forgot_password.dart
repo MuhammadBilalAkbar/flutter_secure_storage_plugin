@@ -4,7 +4,7 @@ import 'login.dart';
 import 'signup.dart';
 
 class ForgotPassword extends StatefulWidget {
-  ForgotPassword({Key? key}) : super(key: key);
+  const ForgotPassword({Key? key}) : super(key: key);
 
   @override
   _ForgotPasswordState createState() => _ForgotPasswordState();
@@ -30,7 +30,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     try {
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           backgroundColor: Colors.orangeAccent,
           content: Text(
             'Password Reset Email has been sent !',
@@ -42,7 +42,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
             backgroundColor: Colors.orangeAccent,
             content: Text(
               'No user found for that email.',
@@ -58,13 +58,13 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Reset Password"),
+        title: const Text("Reset Password"),
       ),
       body: Column(
         children: [
           Container(
-            margin: EdgeInsets.only(top: 20.0),
-            child: Text(
+            margin: const EdgeInsets.only(top: 20.0),
+            child: const Text(
               'Reset Link will be sent to your email id !',
               style: TextStyle(fontSize: 20.0),
             ),
@@ -73,14 +73,15 @@ class _ForgotPasswordState extends State<ForgotPassword> {
             child: Form(
               key: _formKey,
               child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
                 child: ListView(
                   children: [
                     Container(
-                      margin: EdgeInsets.symmetric(vertical: 10.0),
+                      margin: const EdgeInsets.symmetric(vertical: 10.0),
                       child: TextFormField(
                         autofocus: false,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           labelText: 'Email: ',
                           labelStyle: TextStyle(fontSize: 20.0),
                           border: OutlineInputBorder(),
@@ -99,7 +100,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.only(left: 60.0),
+                      margin: const EdgeInsets.only(left: 60.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -113,7 +114,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                 resetPassword();
                               }
                             },
-                            child: Text(
+                            child: const Text(
                               'Send Email',
                               style: TextStyle(fontSize: 18.0),
                             ),
@@ -123,12 +124,14 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                               Navigator.pushAndRemoveUntil(
                                   context,
                                   PageRouteBuilder(
-                                    pageBuilder: (context, a, b) => Login(),
-                                    transitionDuration: Duration(seconds: 0),
+                                    pageBuilder: (context, a, b) =>
+                                        const Login(),
+                                    transitionDuration:
+                                        const Duration(seconds: 0),
                                   ),
                                   (route) => false)
                             },
-                            child: Text(
+                            child: const Text(
                               'Login',
                               style: TextStyle(fontSize: 14.0),
                             ),
@@ -140,20 +143,20 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("Don't have an Account? "),
+                          const Text("Don't have an Account? "),
                           TextButton(
                               onPressed: () => {
                                     Navigator.pushAndRemoveUntil(
                                         context,
                                         PageRouteBuilder(
                                           pageBuilder: (context, a, b) =>
-                                              Signup(),
+                                              const Signup(),
                                           transitionDuration:
-                                              Duration(seconds: 0),
+                                              const Duration(seconds: 0),
                                         ),
                                         (route) => false)
                                   },
-                              child: Text('Signup'))
+                              child: const Text('Signup'))
                         ],
                       ),
                     )

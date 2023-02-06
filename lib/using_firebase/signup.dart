@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'login.dart';
 
 class Signup extends StatefulWidget {
-  Signup({Key? key}) : super(key: key);
+  const Signup({Key? key}) : super(key: key);
 
   @override
   _SignupState createState() => _SignupState();
@@ -37,7 +37,7 @@ class _SignupState extends State<Signup> {
             .createUserWithEmailAndPassword(email: email, password: password);
         print(userCredential);
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
             backgroundColor: Colors.redAccent,
             content: Text(
               "Registered Successfully. Please Login..",
@@ -48,14 +48,14 @@ class _SignupState extends State<Signup> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => Login(),
+            builder: (context) => const Login(),
           ),
         );
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
           print("Password Provided is too Weak");
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
+            const SnackBar(
               backgroundColor: Colors.orangeAccent,
               content: Text(
                 "Password Provided is too Weak",
@@ -66,7 +66,7 @@ class _SignupState extends State<Signup> {
         } else if (e.code == 'email-already-in-use') {
           print("Account Already exists");
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
+            const SnackBar(
               backgroundColor: Colors.orangeAccent,
               content: Text(
                 "Account Already exists",
@@ -79,7 +79,7 @@ class _SignupState extends State<Signup> {
     } else {
       print("Password and Confirm Password doesn't match");
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           backgroundColor: Colors.orangeAccent,
           content: Text(
             "Password and Confirm Password doesn't match",
@@ -94,19 +94,19 @@ class _SignupState extends State<Signup> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("User SignUp"),
+        title: const Text("User SignUp"),
       ),
       body: Form(
         key: _formKey,
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
           child: ListView(
             children: [
               Container(
-                margin: EdgeInsets.symmetric(vertical: 10.0),
+                margin: const EdgeInsets.symmetric(vertical: 10.0),
                 child: TextFormField(
                   autofocus: false,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Email: ',
                     labelStyle: TextStyle(fontSize: 20.0),
                     border: OutlineInputBorder(),
@@ -125,11 +125,11 @@ class _SignupState extends State<Signup> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.symmetric(vertical: 10.0),
+                margin: const EdgeInsets.symmetric(vertical: 10.0),
                 child: TextFormField(
                   autofocus: false,
                   obscureText: true,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Password: ',
                     labelStyle: TextStyle(fontSize: 20.0),
                     border: OutlineInputBorder(),
@@ -146,11 +146,11 @@ class _SignupState extends State<Signup> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.symmetric(vertical: 10.0),
+                margin: const EdgeInsets.symmetric(vertical: 10.0),
                 child: TextFormField(
                   autofocus: false,
                   obscureText: true,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Confirm Password: ',
                     labelStyle: TextStyle(fontSize: 20.0),
                     border: OutlineInputBorder(),
@@ -182,7 +182,7 @@ class _SignupState extends State<Signup> {
                           registration();
                         }
                       },
-                      child: Text(
+                      child: const Text(
                         'Sign Up',
                         style: TextStyle(fontSize: 18.0),
                       ),
@@ -194,7 +194,7 @@ class _SignupState extends State<Signup> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Already have an Account? "),
+                    const Text("Already have an Account? "),
                     TextButton(
                         onPressed: () => {
                               Navigator.pushReplacement(
@@ -202,12 +202,13 @@ class _SignupState extends State<Signup> {
                                 PageRouteBuilder(
                                   pageBuilder:
                                       (context, animation1, animation2) =>
-                                          Login(),
-                                  transitionDuration: Duration(seconds: 0),
+                                          const Login(),
+                                  transitionDuration:
+                                      const Duration(seconds: 0),
                                 ),
                               )
                             },
-                        child: Text('Login'))
+                        child: const Text('Login'))
                   ],
                 ),
               )

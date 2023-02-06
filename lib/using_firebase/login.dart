@@ -1,19 +1,18 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage_plugin/using_firebase/profile.dart';
+import 'profile.dart';
 import 'forgot_password.dart';
 import 'signup.dart';
-// import 'package:flutter_fb_auth_emailpass/pages/user/user_main.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class Login extends StatefulWidget {
-  Login({Key? key}) : super(key: key);
+  const Login({Key? key}) : super(key: key);
 
   @override
-  _LoginState createState() => _LoginState();
+  LoginState createState() => LoginState();
 }
 
-class _LoginState extends State<Login> {
+class LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
 
   var email = "";
@@ -23,25 +22,25 @@ class _LoginState extends State<Login> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  final storage = new FlutterSecureStorage();
+  final _storage = const FlutterSecureStorage();
 
   userLogin() async {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
       // print(userCredential.user?.uid);
-      await storage.write(key: "uid", value: userCredential.user?.uid);
+      await _storage.write(key: "uid", value: userCredential.user?.uid);
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => Profile(),
+          builder: (context) => const Profile(),
         ),
       );
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print("No User Found for that Email");
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
             backgroundColor: Colors.orangeAccent,
             content: Text(
               "No User Found for that Email",
@@ -52,7 +51,7 @@ class _LoginState extends State<Login> {
       } else if (e.code == 'wrong-password') {
         print("Wrong Password Provided by User");
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
             backgroundColor: Colors.orangeAccent,
             content: Text(
               "Wrong Password Provided by User",
@@ -76,19 +75,19 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("User Login"),
+        title: const Text("User Login"),
       ),
       body: Form(
         key: _formKey,
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
           child: ListView(
             children: [
               Container(
-                margin: EdgeInsets.symmetric(vertical: 10.0),
+                margin: const EdgeInsets.symmetric(vertical: 10.0),
                 child: TextFormField(
                   autofocus: false,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Email: ',
                     labelStyle: TextStyle(fontSize: 20.0),
                     border: OutlineInputBorder(),
@@ -107,11 +106,11 @@ class _LoginState extends State<Login> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.symmetric(vertical: 10.0),
+                margin: const EdgeInsets.symmetric(vertical: 10.0),
                 child: TextFormField(
                   autofocus: false,
                   obscureText: true,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Password: ',
                     labelStyle: TextStyle(fontSize: 20.0),
                     border: OutlineInputBorder(),
@@ -128,7 +127,7 @@ class _LoginState extends State<Login> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(left: 60.0),
+                margin: const EdgeInsets.only(left: 60.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -143,7 +142,7 @@ class _LoginState extends State<Login> {
                           userLogin();
                         }
                       },
-                      child: Text(
+                      child: const Text(
                         'Login',
                         style: TextStyle(fontSize: 18.0),
                       ),
@@ -153,11 +152,11 @@ class _LoginState extends State<Login> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => ForgotPassword(),
+                            builder: (context) => const ForgotPassword(),
                           ),
                         )
                       },
-                      child: Text(
+                      child: const Text(
                         'Forgot Password ?',
                         style: TextStyle(fontSize: 14.0),
                       ),
@@ -169,18 +168,18 @@ class _LoginState extends State<Login> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Don't have an Account? "),
+                    const Text("Don't have an Account? "),
                     TextButton(
                       onPressed: () => {
                         Navigator.pushAndRemoveUntil(
                             context,
                             PageRouteBuilder(
-                              pageBuilder: (context, a, b) => Signup(),
-                              transitionDuration: Duration(seconds: 0),
+                              pageBuilder: (context, a, b) => const Signup(),
+                              transitionDuration: const Duration(seconds: 0),
                             ),
                             (route) => false)
                       },
-                      child: Text('Signup'),
+                      child: const Text('Signup'),
                     ),
                     // TextButton(
                     //   onPressed: () => {

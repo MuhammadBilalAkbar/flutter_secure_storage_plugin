@@ -12,10 +12,12 @@ void main() {
 
 class MyApp extends StatelessWidget {
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
-  final storage = new FlutterSecureStorage();
+  final _storage = const FlutterSecureStorage();
+
+  MyApp({super.key});
 
   Future<bool> checkLoginStatus() async {
-    String? value = await storage.read(key: "uid");
+    String? value = await _storage.read(key: "uid");
     if (value == null) {
       return false;
     }
@@ -32,7 +34,7 @@ class MyApp extends StatelessWidget {
             print("Something Went Wrong");
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
           return MaterialApp(
             title: 'Flutter Firebase EMail Password Auth',
@@ -40,18 +42,22 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.deepPurple,
             ),
             debugShowCheckedModeBanner: false,
+
+            /// secure_storage_official
+            // home: SecureStorageOfficial(),
             home: FutureBuilder(
                 future: checkLoginStatus(),
                 builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
                   if (snapshot.data == false) {
-                    return Login();
+                    return const Login();
                   }
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Container(
                         color: Colors.white,
-                        child: Center(child: CircularProgressIndicator()));
+                        child:
+                            const Center(child: CircularProgressIndicator()));
                   }
-                  return Profile();
+                  return const Profile();
                 }),
           );
         });
