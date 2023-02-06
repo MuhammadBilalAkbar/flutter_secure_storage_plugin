@@ -14,10 +14,10 @@ class MyApp extends StatelessWidget {
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
   final _storage = const FlutterSecureStorage();
 
-  MyApp({super.key});
+  MyApp({Key? key}) : super(key: key);
 
   Future<bool> checkLoginStatus() async {
-    String? value = await _storage.read(key: "uid");
+    String? value = await _storage.read(key: 'uid');
     if (value == null) {
       return false;
     }
@@ -25,13 +25,11 @@ class MyApp extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return FutureBuilder(
+  Widget build(BuildContext context) => FutureBuilder(
         future: _initialization,
         builder: (context, snapshot) {
-          // Check for Errors
           if (snapshot.hasError) {
-            print("Something Went Wrong");
+            print('Something Went Wrong');
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
@@ -46,20 +44,23 @@ class MyApp extends StatelessWidget {
             /// secure_storage_official
             // home: SecureStorageOfficial(),
             home: FutureBuilder(
-                future: checkLoginStatus(),
-                builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-                  if (snapshot.data == false) {
-                    return const Login();
-                  }
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Container(
-                        color: Colors.white,
-                        child:
-                            const Center(child: CircularProgressIndicator()));
-                  }
-                  return const Profile();
-                }),
+              future: checkLoginStatus(),
+              builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+                if (snapshot.data == false) {
+                  return const Login();
+                }
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Container(
+                    color: Colors.white,
+                    child: const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+                }
+                return const Profile();
+              },
+            ),
           );
-        });
-  }
+        },
+      );
 }

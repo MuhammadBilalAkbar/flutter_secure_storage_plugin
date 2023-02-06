@@ -71,8 +71,6 @@ class SecureStorageOfficialState extends State<SecureStorageOfficial> {
 
   AndroidOptions _getAndroidOptions() => const AndroidOptions(
         encryptedSharedPreferences: true,
-        // sharedPreferencesName: 'Test2',
-        // preferencesKeyPrefix: 'Test'
       );
 
   String? _getAccountName() =>
@@ -209,7 +207,9 @@ class SecureStorageOfficialState extends State<SecureStorageOfficial> {
         if (!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Contains Key: $result, key checked: $key'),
+            content: Text(
+              'Contains Key: $result, key checked: $key',
+            ),
             backgroundColor: result ? Colors.green : Colors.red,
           ),
         );
@@ -256,10 +256,12 @@ class SecureStorageOfficialState extends State<SecureStorageOfficial> {
 
   String _randomValue() {
     final rand = Random();
-    final codeUnits = List.generate(20, (index) {
-      return rand.nextInt(26) + 65;
-    });
-
+    final codeUnits = List.generate(
+      20,
+      (index) {
+        return rand.nextInt(26) + 65;
+      },
+    );
     return String.fromCharCodes(codeUnits);
   }
 }

@@ -6,24 +6,21 @@ class Signup extends StatefulWidget {
   const Signup({Key? key}) : super(key: key);
 
   @override
-  _SignupState createState() => _SignupState();
+  SignupState createState() => SignupState();
 }
 
-class _SignupState extends State<Signup> {
+class SignupState extends State<Signup> {
   final _formKey = GlobalKey<FormState>();
 
-  var email = "";
-  var password = "";
-  var confirmPassword = "";
-  // Create a text controller and use it to retrieve the current value
-  // of the TextField.
+  var email = '';
+  var password = '';
+  var confirmPassword = '';
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
 
   @override
   void dispose() {
-    // Clean up the controller when the widget is disposed.
     emailController.dispose();
     passwordController.dispose();
     confirmPasswordController.dispose();
@@ -35,12 +32,12 @@ class _SignupState extends State<Signup> {
       try {
         UserCredential userCredential = await FirebaseAuth.instance
             .createUserWithEmailAndPassword(email: email, password: password);
-        print(userCredential);
+        debugPrint(userCredential.toString());
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             backgroundColor: Colors.redAccent,
             content: Text(
-              "Registered Successfully. Please Login..",
+              'Registered Successfully. Please Login..',
               style: TextStyle(fontSize: 20.0),
             ),
           ),
@@ -53,23 +50,23 @@ class _SignupState extends State<Signup> {
         );
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
-          print("Password Provided is too Weak");
+          debugPrint('Password Provided is too Weak');
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               backgroundColor: Colors.orangeAccent,
               content: Text(
-                "Password Provided is too Weak",
+                'Password Provided is too Weak',
                 style: TextStyle(fontSize: 18.0, color: Colors.black),
               ),
             ),
           );
         } else if (e.code == 'email-already-in-use') {
-          print("Account Already exists");
+          debugPrint('Account Already exists');
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               backgroundColor: Colors.orangeAccent,
               content: Text(
-                "Account Already exists",
+                'Account Already exists',
                 style: TextStyle(fontSize: 18.0, color: Colors.black),
               ),
             ),
@@ -77,13 +74,16 @@ class _SignupState extends State<Signup> {
         }
       }
     } else {
-      print("Password and Confirm Password doesn't match");
+      debugPrint('Password and Confirm Password doesn\'t match');
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           backgroundColor: Colors.orangeAccent,
           content: Text(
-            "Password and Confirm Password doesn't match",
-            style: TextStyle(fontSize: 16.0, color: Colors.black),
+            'Password and Confirm Password doesn\'t match',
+            style: TextStyle(
+              fontSize: 16.0,
+              color: Colors.black,
+            ),
           ),
         ),
       );
@@ -94,7 +94,7 @@ class _SignupState extends State<Signup> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("User SignUp"),
+        title: const Text('User SignUp'),
       ),
       body: Form(
         key: _formKey,
@@ -133,8 +133,10 @@ class _SignupState extends State<Signup> {
                     labelText: 'Password: ',
                     labelStyle: TextStyle(fontSize: 20.0),
                     border: OutlineInputBorder(),
-                    errorStyle:
-                        TextStyle(color: Colors.redAccent, fontSize: 15),
+                    errorStyle: TextStyle(
+                      color: Colors.redAccent,
+                      fontSize: 15,
+                    ),
                   ),
                   controller: passwordController,
                   validator: (value) {
@@ -172,7 +174,6 @@ class _SignupState extends State<Signup> {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        // Validate returns true if the form is valid, otherwise false.
                         if (_formKey.currentState!.validate()) {
                           setState(() {
                             email = emailController.text;
@@ -194,21 +195,22 @@ class _SignupState extends State<Signup> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text("Already have an Account? "),
+                    const Text('Already have an Account? '),
                     TextButton(
-                        onPressed: () => {
-                              Navigator.pushReplacement(
-                                context,
-                                PageRouteBuilder(
-                                  pageBuilder:
-                                      (context, animation1, animation2) =>
-                                          const Login(),
-                                  transitionDuration:
-                                      const Duration(seconds: 0),
-                                ),
-                              )
-                            },
-                        child: const Text('Login'))
+                      onPressed: () => {
+                        Navigator.pushReplacement(
+                          context,
+                          PageRouteBuilder(
+                            pageBuilder: (context, animation1, animation2) =>
+                                const Login(),
+                            transitionDuration: const Duration(seconds: 0),
+                          ),
+                        )
+                      },
+                      child: const Text(
+                        'Login',
+                      ),
+                    ),
                   ],
                 ),
               )

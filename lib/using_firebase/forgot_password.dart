@@ -7,21 +7,18 @@ class ForgotPassword extends StatefulWidget {
   const ForgotPassword({Key? key}) : super(key: key);
 
   @override
-  _ForgotPasswordState createState() => _ForgotPasswordState();
+  ForgotPasswordState createState() => ForgotPasswordState();
 }
 
-class _ForgotPasswordState extends State<ForgotPassword> {
+class ForgotPasswordState extends State<ForgotPassword> {
   final _formKey = GlobalKey<FormState>();
 
-  var email = "";
+  var email = '';
 
-  // Create a text controller and use it to retrieve the current value
-  // of the TextField.
   final emailController = TextEditingController();
 
   @override
   void dispose() {
-    // Clean up the controller when the widget is disposed.
     emailController.dispose();
     super.dispose();
   }
@@ -58,7 +55,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Reset Password"),
+        title: const Text('Reset Password'),
       ),
       body: Column(
         children: [
@@ -106,7 +103,6 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         children: [
                           ElevatedButton(
                             onPressed: () {
-                              // Validate returns true if the form is valid, otherwise false.
                               if (_formKey.currentState!.validate()) {
                                 setState(() {
                                   email = emailController.text;
@@ -143,7 +139,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text("Don't have an Account? "),
+                          const Text('Don\'t have an Account? '),
                           TextButton(
                               onPressed: () => {
                                     Navigator.pushAndRemoveUntil(
@@ -156,7 +152,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                         ),
                                         (route) => false)
                                   },
-                              child: const Text('Signup'))
+                              child: const Text('Signup'),)
                         ],
                       ),
                     )

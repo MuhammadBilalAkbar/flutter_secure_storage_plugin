@@ -43,11 +43,11 @@ class _ProfileState extends State<Profile> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text("Welcome User"),
+            const Text('Welcome User'),
             ElevatedButton(
               onPressed: () async => {
                 await FirebaseAuth.instance.signOut(),
-                await storage.delete(key: "uid"),
+                await storage.delete(key: 'uid'),
                 Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
