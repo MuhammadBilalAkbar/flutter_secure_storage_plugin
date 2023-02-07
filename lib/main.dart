@@ -11,13 +11,13 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+  final _initialization = Firebase.initializeApp();
   final _storage = const FlutterSecureStorage();
 
   MyApp({Key? key}) : super(key: key);
 
   Future<bool> checkLoginStatus() async {
-    String? value = await _storage.read(key: 'uid');
+    final value = await _storage.read(key: 'uid');
     if (value == null) {
       return false;
     }
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         future: _initialization,
         builder: (context, snapshot) {
           if (snapshot.hasError) {
-            print('Something Went Wrong');
+            debugPrint('Something Went Wrong');
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
@@ -42,10 +42,10 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
 
             /// secure_storage_official
-            // home: SecureStorageOfficial(),
+            // home: const SecureStorageOfficial(),
             home: FutureBuilder(
               future: checkLoginStatus(),
-              builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+              builder: (context, snapshot) {
                 if (snapshot.data == false) {
                   return const Login();
                 }

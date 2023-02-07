@@ -95,7 +95,7 @@ class SecureStorageOfficialState extends State<SecureStorageOfficial> {
                     break;
                 }
               },
-              itemBuilder: (BuildContext context) => <PopupMenuEntry<_Actions>>[
+              itemBuilder: (context) => <PopupMenuEntry<_Actions>>[
                 const PopupMenuItem(
                   key: Key('delete_all'),
                   value: _Actions.deleteAll,
@@ -119,13 +119,12 @@ class SecureStorageOfficialState extends State<SecureStorageOfficial> {
             Expanded(
               child: ListView.builder(
                 itemCount: _items.length,
-                itemBuilder: (BuildContext context, int index) => ListTile(
+                itemBuilder: (context, index) => ListTile(
                   trailing: PopupMenuButton(
                     key: Key('popup_row_$index'),
                     onSelected: (_ItemActions action) =>
                         _performAction(action, _items[index], context),
-                    itemBuilder: (BuildContext context) =>
-                        <PopupMenuEntry<_ItemActions>>[
+                    itemBuilder: (context) => <PopupMenuEntry<_ItemActions>>[
                       PopupMenuItem(
                         value: _ItemActions.delete,
                         child: Text(
@@ -172,9 +171,9 @@ class SecureStorageOfficialState extends State<SecureStorageOfficial> {
       );
 
   Future<void> _performAction(
-    _ItemActions action,
-    _SecItem item,
-    BuildContext context,
+    action,
+    item,
+    context,
   ) async {
     switch (action) {
       case _ItemActions.delete:
@@ -229,27 +228,25 @@ class SecureStorageOfficialState extends State<SecureStorageOfficial> {
   }
 
   Future<String> _displayTextInputDialog(
-    BuildContext context,
-    String key,
+    context,
+    key,
   ) async {
     final controller = TextEditingController();
     controller.text = key;
     await showDialog(
       context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text('Check if key exists'),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: const Text('OK'),
-            )
-          ],
-          content: TextField(
-            controller: controller,
-          ),
-        );
-      },
+      builder: (context) => AlertDialog(
+        title: const Text('Check if key exists'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text('OK'),
+          )
+        ],
+        content: TextField(
+          controller: controller,
+        ),
+      ),
     );
     return controller.text;
   }

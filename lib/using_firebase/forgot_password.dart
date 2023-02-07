@@ -26,6 +26,7 @@ class ForgotPasswordState extends State<ForgotPassword> {
   resetPassword() async {
     try {
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+      if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           backgroundColor: Colors.orangeAccent,
@@ -37,7 +38,7 @@ class ForgotPasswordState extends State<ForgotPassword> {
       );
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        print('No user found for that email.');
+        debugPrint('No user found for that email.');
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             backgroundColor: Colors.orangeAccent,
@@ -52,117 +53,114 @@ class ForgotPasswordState extends State<ForgotPassword> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Reset Password'),
-      ),
-      body: Column(
-        children: [
-          Container(
-            margin: const EdgeInsets.only(top: 20.0),
-            child: const Text(
-              'Reset Link will be sent to your email id !',
-              style: TextStyle(fontSize: 20.0),
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(
+          title: const Text('Reset Password'),
+        ),
+        body: Column(
+          children: [
+            Container(
+              margin: const EdgeInsets.only(top: 20.0),
+              child: const Text(
+                'Reset Link will be sent to your email id !',
+                style: TextStyle(fontSize: 20.0),
+              ),
             ),
-          ),
-          Expanded(
-            child: Form(
-              key: _formKey,
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
-                child: ListView(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.symmetric(vertical: 10.0),
-                      child: TextFormField(
-                        autofocus: false,
-                        decoration: const InputDecoration(
-                          labelText: 'Email: ',
-                          labelStyle: TextStyle(fontSize: 20.0),
-                          border: OutlineInputBorder(),
-                          errorStyle:
-                              TextStyle(color: Colors.redAccent, fontSize: 15),
+            Expanded(
+              child: Form(
+                key: _formKey,
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+                  child: ListView(
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.symmetric(vertical: 10.0),
+                        child: TextFormField(
+                          autofocus: false,
+                          decoration: const InputDecoration(
+                            labelText: 'Email: ',
+                            labelStyle: TextStyle(fontSize: 20.0),
+                            border: OutlineInputBorder(),
+                            errorStyle: TextStyle(
+                                color: Colors.redAccent, fontSize: 15),
+                          ),
+                          controller: emailController,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please Enter Email';
+                            } else if (!value.contains('@')) {
+                              return 'Please Enter Valid Email';
+                            }
+                            return null;
+                          },
                         ),
-                        controller: emailController,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please Enter Email';
-                          } else if (!value.contains('@')) {
-                            return 'Please Enter Valid Email';
-                          }
-                          return null;
-                        },
                       ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(left: 60.0),
-                      child: Row(
+                      Container(
+                        margin: const EdgeInsets.only(left: 60.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ElevatedButton(
+                              onPressed: () {
+                                if (_formKey.currentState!.validate()) {
+                                  setState(() {
+                                    email = emailController.text;
+                                  });
+                                  resetPassword();
+                                }
+                              },
+                              child: const Text(
+                                'Send Email',
+                                style: TextStyle(fontSize: 18.0),
+                              ),
+                            ),
+                            TextButton(
+                              onPressed: () => {
+                                Navigator.pushAndRemoveUntil(
+                                    context,
+                                    PageRouteBuilder(
+                                      pageBuilder: (context, a, b) =>
+                                          const Login(),
+                                      transitionDuration:
+                                          const Duration(seconds: 0),
+                                    ),
+                                    (route) => false)
+                              },
+                              child: const Text(
+                                'Login',
+                                style: TextStyle(fontSize: 14.0),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          ElevatedButton(
-                            onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                setState(() {
-                                  email = emailController.text;
-                                });
-                                resetPassword();
-                              }
-                            },
-                            child: const Text(
-                              'Send Email',
-                              style: TextStyle(fontSize: 18.0),
-                            ),
-                          ),
+                          const Text('Don\'t have an Account? '),
                           TextButton(
                             onPressed: () => {
                               Navigator.pushAndRemoveUntil(
                                   context,
                                   PageRouteBuilder(
                                     pageBuilder: (context, a, b) =>
-                                        const Login(),
+                                        const Signup(),
                                     transitionDuration:
                                         const Duration(seconds: 0),
                                   ),
                                   (route) => false)
                             },
-                            child: const Text(
-                              'Login',
-                              style: TextStyle(fontSize: 14.0),
-                            ),
-                          ),
+                            child: const Text('Signup'),
+                          )
                         ],
-                      ),
-                    ),
-                    Container(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text('Don\'t have an Account? '),
-                          TextButton(
-                              onPressed: () => {
-                                    Navigator.pushAndRemoveUntil(
-                                        context,
-                                        PageRouteBuilder(
-                                          pageBuilder: (context, a, b) =>
-                                              const Signup(),
-                                          transitionDuration:
-                                              const Duration(seconds: 0),
-                                        ),
-                                        (route) => false)
-                                  },
-                              child: const Text('Signup'),)
-                        ],
-                      ),
-                    )
-                  ],
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
-      ),
-    );
-  }
+          ],
+        ),
+      );
 }
