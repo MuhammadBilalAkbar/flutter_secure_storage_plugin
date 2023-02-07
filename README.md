@@ -249,4 +249,4 @@
     }
     ```
    - `profile.dart` contains user id, email and date created of a user.
-5. `secure_storage_official.dart` covers all 
+5. `secure_storage_official.dart` covers all properties of Flutter Secure Storage Plugin like read, write, delete, read all, and delete all.
