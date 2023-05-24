@@ -92,7 +92,7 @@ class LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: const Text('User Login'),
+          title: const Text('User  Login'),
         ),
         body: Form(
           key: _formKey,
