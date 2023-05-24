@@ -6,7 +6,11 @@ import 'signup.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class Login extends StatefulWidget {
-  const Login({Key? key}) : super(key: key);
+  const Login({Key? key, this.email = '', this.password = ''})
+      : super(key: key);
+
+  final String email;
+  final String password;
 
   @override
   LoginState createState() => LoginState();
@@ -14,20 +18,36 @@ class Login extends StatefulWidget {
 
 class LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
-
-  var email = '';
-  var password = '';
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  String userEmail = '';
+  String userPassword = '';
+  late final TextEditingController emailController;
+  late final TextEditingController passwordController;
 
   final _storage = const FlutterSecureStorage();
+
+  static bool _isChecked = false;
+
+  @override
+  void initState() {
+    super.initState();
+    emailController = TextEditingController(text: widget.email);
+    passwordController = TextEditingController(text: widget.password);
+    debugPrint('userEmail: $userEmail');
+    debugPrint('userPassword: $userPassword');
+    debugPrint('userEmail: ${widget.email}');
+    debugPrint('userPassword: ${widget.password}');
+  }
 
   userLogin() async {
     try {
       final userCredential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password);
+          .signInWithEmailAndPassword(email: userEmail, password: userPassword);
       debugPrint(userCredential.user?.uid);
-      await _storage.write(key: 'uid', value: userCredential.user?.uid);
+      if (_isChecked) {
+        await _storage.write(key: 'uid', value: userCredential.user?.uid);
+        await _storage.write(key: 'email', value: userEmail);
+        await _storage.write(key: 'password', value: userPassword);
+      }
       if (!mounted) return;
       Navigator.pushReplacement(
         context,
@@ -83,6 +103,8 @@ class LoginState extends State<Login> {
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 10.0),
                   child: TextFormField(
+                    controller: emailController,
+                    // initialValue: widget.email,
                     autofocus: false,
                     decoration: const InputDecoration(
                       labelText: 'Email: ',
@@ -91,7 +113,6 @@ class LoginState extends State<Login> {
                       errorStyle:
                           TextStyle(color: Colors.redAccent, fontSize: 15),
                     ),
-                    controller: emailController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please Enter Email';
@@ -105,6 +126,8 @@ class LoginState extends State<Login> {
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 10.0),
                   child: TextFormField(
+                    controller: passwordController,
+                    // initialValue: widget.password,
                     autofocus: false,
                     obscureText: true,
                     decoration: const InputDecoration(
@@ -114,7 +137,6 @@ class LoginState extends State<Login> {
                       errorStyle:
                           TextStyle(color: Colors.redAccent, fontSize: 15),
                     ),
-                    controller: passwordController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please Enter Password';
@@ -123,6 +145,23 @@ class LoginState extends State<Login> {
                     },
                   ),
                 ),
+                Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                  SizedBox(
+                      height: 24.0,
+                      width: 24.0,
+                      child: Checkbox(
+                        value: _isChecked,
+                        onChanged: (value) {
+                          setState(() {
+                            _isChecked = value!;
+                          });
+                          debugPrint("Handle Remember Me");
+                          debugPrint('isChecked: $_isChecked');
+                        },
+                      )),
+                  const SizedBox(width: 10.0),
+                  const Text("Remember Me")
+                ]),
                 Container(
                   margin: const EdgeInsets.only(left: 60.0),
                   child: Row(
@@ -132,8 +171,8 @@ class LoginState extends State<Login> {
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             setState(() {
-                              email = emailController.text;
-                              password = passwordController.text;
+                              userEmail = emailController.text;
+                              userPassword = passwordController.text;
                             });
                             userLogin();
                           }

@@ -11,10 +11,10 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  MyApp({Key? key}) : super(key: key);
+
   final _initialization = Firebase.initializeApp();
   final _storage = const FlutterSecureStorage();
-
-  MyApp({Key? key}) : super(key: key);
 
   Future<bool> checkLoginStatus() async {
     final value = await _storage.read(key: 'uid');

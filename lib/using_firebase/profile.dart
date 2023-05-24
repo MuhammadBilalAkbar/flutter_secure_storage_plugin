@@ -37,6 +37,15 @@ class ProfileState extends State<Profile> {
     }
   }
 
+  void getUserDetail() async {
+    final userId = await storage.read(key: 'uid');
+    final email = await storage.read(key: 'email');
+    final password = await storage.read(key: 'password');
+    debugPrint('userId: $userId');
+    debugPrint('email: $email');
+    debugPrint('password: $password');
+  }
+
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
@@ -45,15 +54,22 @@ class ProfileState extends State<Profile> {
             children: [
               const Text('Welcome User'),
               ElevatedButton(
-                onPressed: () async => {
-                  await FirebaseAuth.instance.signOut(),
-                  await storage.delete(key: 'uid'),
+                onPressed: () async {
+                  await FirebaseAuth.instance.signOut();
+                  await storage.delete(key: 'uid');
+                  final userEmail = await storage.read(key: 'email');
+                  final userPassword = await storage.read(key: 'password');
+                  debugPrint('$userEmail $userPassword');
+                  if (!mounted) return;
                   Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const Login(),
+                        builder: (context) => Login(
+                          email: userEmail!,
+                          password: userPassword!,
+                        ),
                       ),
-                      (route) => false),
+                      (route) => false);
                 },
                 style:
                     ElevatedButton.styleFrom(backgroundColor: Colors.blueGrey),
@@ -91,6 +107,10 @@ class ProfileState extends State<Profile> {
               Text(
                 'Created: $creationTime',
                 style: const TextStyle(fontSize: 18.0),
+              ),
+              ElevatedButton(
+                onPressed: getUserDetail,
+                child: const Text('Get User Detail'),
               ),
             ],
           ),
