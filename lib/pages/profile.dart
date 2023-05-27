@@ -1,5 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import 'login.dart';
@@ -23,7 +23,7 @@ class ProfileState extends State<Profile> {
   verifyEmail() async {
     if (user != null && !user!.emailVerified) {
       await user!.sendEmailVerification();
-      debugPrint('Verification Email has been sent');
+      debugPrint('Verification Email has been sent.');
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -41,9 +41,9 @@ class ProfileState extends State<Profile> {
     final userId = await storage.read(key: 'uid');
     final email = await storage.read(key: 'email');
     final password = await storage.read(key: 'password');
-    debugPrint('userId: $userId');
-    debugPrint('email: $email');
-    debugPrint('password: $password');
+    debugPrint('Profile => userId: $userId');
+    debugPrint('Profile => email: $email');
+    debugPrint('Profile => password: $password');
   }
 
   @override
@@ -52,62 +52,56 @@ class ProfileState extends State<Profile> {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('Welcome User'),
+              const Text('User Profile'),
               ElevatedButton(
                 onPressed: () async {
                   await FirebaseAuth.instance.signOut();
                   await storage.delete(key: 'uid');
-                  final userEmail = await storage.read(key: 'email');
-                  final userPassword = await storage.read(key: 'password');
-                  debugPrint('$userEmail $userPassword');
                   if (!mounted) return;
                   Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Login(
-                          email: userEmail!,
-                          password: userPassword!,
-                        ),
-                      ),
-                      (route) => false);
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const Login(),
+                    ),
+                    (route) => false,
+                  );
                 },
-                style:
-                    ElevatedButton.styleFrom(backgroundColor: Colors.blueGrey),
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.grey),
                 child: const Text('Logout'),
               )
             ],
           ),
         ),
         body: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+          margin: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0),
           child: Column(
             children: [
               Text(
                 'User ID: $uid',
-                style: const TextStyle(fontSize: 18.0),
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
+              const SizedBox(height: 30),
               Row(
                 children: [
-                  Text(
-                    'Email: $email',
-                    style: const TextStyle(fontSize: 10.0),
-                  ),
+                  Text('Email: $email'),
+                  const SizedBox(width: 20),
                   user!.emailVerified
-                      ? const Text(
-                          'verified',
-                          style:
-                              TextStyle(fontSize: 18.0, color: Colors.blueGrey),
-                        )
+                      ? const Text('verified')
                       : TextButton(
-                          onPressed: () => {verifyEmail()},
+                          onPressed: verifyEmail,
                           child: const Text('Verify Email'),
                         ),
                 ],
               ),
+              const SizedBox(height: 30),
               Text(
                 'Created: $creationTime',
-                style: const TextStyle(fontSize: 18.0),
+                style: const TextStyle(fontSize: 24),
               ),
+              const SizedBox(height: 30),
               ElevatedButton(
                 onPressed: getUserDetail,
                 child: const Text('Get User Detail'),

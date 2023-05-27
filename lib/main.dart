@@ -1,9 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'using_firebase/login.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-import 'using_firebase/profile.dart';
+import 'check_status.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,20 +11,11 @@ void main() {
 class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key);
 
-  final _initialization = Firebase.initializeApp();
-  final _storage = const FlutterSecureStorage();
-
-  Future<bool> checkLoginStatus() async {
-    final value = await _storage.read(key: 'uid');
-    if (value == null) {
-      return false;
-    }
-    return true;
-  }
+  final initialization = Firebase.initializeApp();
 
   @override
   Widget build(BuildContext context) => FutureBuilder(
-        future: _initialization,
+        future: initialization,
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             debugPrint('Something Went Wrong');
@@ -36,30 +25,39 @@ class MyApp extends StatelessWidget {
           }
           return MaterialApp(
             title: 'Flutter Firebase EMail Password Auth',
-            theme: ThemeData(
-              primarySwatch: Colors.deepPurple,
-            ),
             debugShowCheckedModeBanner: false,
-
-            /// secure_storage_official
-            // home: const SecureStorageOfficial(),
-            home: FutureBuilder(
-              future: checkLoginStatus(),
-              builder: (context, snapshot) {
-                if (snapshot.data == false) {
-                  return const Login();
-                }
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Container(
-                    color: Colors.white,
-                    child: const Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                  );
-                }
-                return const Profile();
-              },
+            theme: ThemeData(
+              primarySwatch: Colors.teal,
+              textTheme: const TextTheme(
+                bodyMedium: TextStyle(fontSize: 16),
+                titleMedium: TextStyle(fontSize: 24),
+              ),
+              appBarTheme: const AppBarTheme(
+                centerTitle: true,
+                titleTextStyle: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              elevatedButtonTheme: ElevatedButtonThemeData(
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size(150, 40),
+                  textStyle: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              textButtonTheme: TextButtonThemeData(
+                style: ElevatedButton.styleFrom(
+                  textStyle: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
             ),
+            home: const CheckStatus(),
           );
         },
       );
