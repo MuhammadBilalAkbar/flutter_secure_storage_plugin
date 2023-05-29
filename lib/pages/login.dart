@@ -50,7 +50,7 @@ class _LoginState extends State<Login> {
     }
   }
 
-  userLogin() async {
+  loginUser() async {
     try {
       final userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: userEmail, password: userPassword);
@@ -176,7 +176,7 @@ class _LoginState extends State<Login> {
                             userEmail = emailController.text;
                             userPassword = passwordController.text;
                           });
-                          userLogin();
+                          loginUser();
                         }
                       },
                       child: const Text('Login'),

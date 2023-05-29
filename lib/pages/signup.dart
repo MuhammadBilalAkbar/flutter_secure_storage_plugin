@@ -12,7 +12,6 @@ class Signup extends StatefulWidget {
 
 class SignupState extends State<Signup> {
   final formKey = GlobalKey<FormState>();
-
   var email = '';
   var password = '';
   var confirmPassword = '';

@@ -1,31 +1,32 @@
-## 1. Research: Flutter Secure Storage Package 
+## 1. Research: Flutter Secure Storage Package
 
-- Keywords: 
-  - flutter secure storage
-  - how to use flutter secure storage
-  - flutter secure storage vs shared preferences
-  - flutter secure storage alternative
-  - flutter secure storage example
-  - flutter secure storage vs hive
-  - hive flutter
-  - shared preferences flutter
-  - local storage flutter
-  - flutter localstorage example
-  - flutter storage
-  - flutter secure storage ios
-  - flutter secure storage token
-  - save token in sharedpreferences flutter
-  - flutter secure storage tutorial
-  - how to store login credentials
-  - how to use shared preferences to keep users logged in flutter
-  - how to save user sign in details in flutter
-  - flutter autofill password
-  - flutter save username and password
-  - flutter sharedpreferences login example
-  - flutter login autofill
-  - shared preferences to keep user logged in android
-  - login session in flutter
-- Video Title: Flutter secure storage - login autofill, save user credentials (username and password)
+- Keywords:
+    - flutter secure storage
+    - how to use flutter secure storage
+    - flutter secure storage vs shared preferences
+    - flutter secure storage alternative
+    - flutter secure storage example
+    - flutter secure storage vs hive
+    - hive flutter
+    - shared preferences flutter
+    - local storage flutter
+    - flutter localstorage example
+    - flutter storage
+    - flutter secure storage ios
+    - flutter secure storage token
+    - save token in sharedpreferences flutter
+    - flutter secure storage tutorial
+    - how to store login credentials
+    - how to use shared preferences to keep users logged in flutter
+    - how to save user sign in details in flutter
+    - flutter autofill password
+    - flutter save username and password
+    - flutter sharedpreferences login example
+    - flutter login autofill
+    - shared preferences to keep user logged in android
+    - login session in flutter
+- Video Title: Flutter secure storage - login autofill, save user credentials (username and
+  password)
 
 ## 2. Research: Competitors
 
@@ -52,17 +53,29 @@
 - 8.4K: https://www.youtube.com/watch?v=ndPXrcqDIZg
 - 11K: https://www.youtube.com/watch?v=XivMMLBqH9E
 
-**Great Features** 
-- Flutter Secure Storage provides API to store data in secure storage. Keychain is used in iOS, KeyStore based solution is used in Android.
-- If the platform is Android, then flutter_secure_storage stores data in encryptedSharedPreference, which are shared preferences that encrypt keys and values. It handles AES encryption to generate a secret key encrypted with RSA and stored in KeyStore.
-  For the iOS platform, flutter_secure_storage uses the KeyChain which is an iOS-specific secure storage used to store and access cryptographic keys only in your app.
+**Great Features**
+
+- Flutter Secure Storage provides API to store data in secure storage. Keychain is used in iOS,
+  KeyStore based solution is used in Android.
+- If the platform is Android, then flutter_secure_storage stores data in encryptedSharedPreference,
+  which are shared preferences that encrypt keys and values. It handles AES encryption to generate a
+  secret key encrypted with RSA and stored in KeyStore.
+  For the iOS platform, flutter_secure_storage uses the KeyChain which is an iOS-specific secure
+  storage used to store and access cryptographic keys only in your app.
   In the case of the web, flutter_secure_storage uses the Web Cryptography (Web Crypto) API.
 
-**Problems from Videos** 
-- Question: I use flutter secure storage in flutter web, token was save in local storage browser but when I changed token in local storage browser ,token changed. Why my account can not log out when token was change?
-  Answer: you need to write some logic for your requirement to be fulfilled. you have to logout on token change and make sure remove all user data from local while logout
-- Question: Any reason you put the key in a variable?  Usually when you access an array you just write the key each time and storing it as a variable doesn't help much?  Just curious of the reason as it doesn't really matter if it is personal preference or something.
-  Answer: Maybe because its using the same key in different places and if you want to change it you would need to change it in all different places
+**Problems from Videos**
+
+- Question: I use flutter secure storage in flutter web, token was save in local storage browser but
+  when I changed token in local storage browser ,token changed. Why my account can not log out when
+  token was change?
+  Answer: you need to write some logic for your requirement to be fulfilled. you have to logout on
+  token change and make sure remove all user data from local while logout
+- Question: Any reason you put the key in a variable? Usually when you access an array you just
+  write the key each time and storing it as a variable doesn't help much? Just curious of the reason
+  as it doesn't really matter if it is personal preference or something.
+  Answer: Maybe because its using the same key in different places and if you want to change it you
+  would need to change it in all different places
 - Question: Hi, can i use tgist storage to store and encrypt pdfs or midi files?
   Answer:  Hey go with hive database. It provides a feature for securing files🚀
 - Question: We can also use the authStateChange if the current user is logged in or not right?
@@ -80,173 +93,331 @@
 
 **Main Points / Purpose Of Lesson**
 
-1. It uses AES (Advanced Encryption Standard) to storing data securely and encrypted. It read, write, and delete data from secure storage.
+1. It uses AES (Advanced Encryption Standard) to storing data securely and encrypted. It read,
+   write, and delete data from secure storage.
 2. Main points of this video lesson
     - First is using firebase auto login
     - Second is flutter_secure_storage official example on github.
-3. It is the best plugin to save data securely. We can use it to save the login credentials of a user to prevent from repeatedly login.
+3. It is the best plugin to save data securely. We can use it to save the login credentials of a
+   user to prevent from repeatedly login.
 
 **The Structured Main Content**
+
 1. Run `dart pub add flutter_secure_storage` to add this package to your project pubspec.yaml file.
 2. Main Points
-    - Configure Android version in `[project]/android/app/build.gradle` set `minSdkVersion` to >= 18.
-    - You can configure web, linux, windows and MacOS by visiting (pub.dev/packages/flutter_secure_storage)[https://pub.dev/packages/flutter_secure_storage]
-    - For login purpose, I use firebase. So run `dart pub add firebase_core` and `dart pub add firebase_auth` in terminal to add these dependencies in `pubspec.yaml` file.
-3. For auto login using firebase, first configure and integrate your project with firebase and then make four screens login, signup, profile after login and forgot_password.
-    - In `main.dart`, `login.dart`, `profile.dart`, and `secure_storage_official.dart`, initialize storage.
+    - Configure Android version in `[project]/android/app/build.gradle` set `minSdkVersion` to >=
+        18.
+    - You can configure web, linux, windows and MacOS by visiting (
+      pub.dev/packages/flutter_secure_storage)[https://pub.dev/packages/flutter_secure_storage]
+    - For login purpose, I use firebase. So run `dart pub add firebase_core`
+      and `dart pub add firebase_auth` in terminal to add these dependencies in `pubspec.yaml` file.
+    - Always dispose `TextFields` or `TextFormFields` in every project.
+3. For auto login using firebase, first configure and integrate your project with firebase and then
+   make four screens login, signup, profile, and forgot_password. login screen has remember me check
+   mark button for auto login purpose or to autofill email and password.
+
+   In `login.dart`, `profile.dart`, and `check_status.dart`, initialize flutter secure storage.
     ```dart
-      final _storage = const FlutterSecureStorage();
+      final storage = const FlutterSecureStorage();
     ```
-    - `home` property of `MaterialApp` contains `FutureBuilder(...)` for auto login using firebase. For `SecureStorageOfficial()` example, it is also commented as `home` property in `main.dart` file.
+4. In `main.dart`, MyApp returns FutureBuilder. `future` property of FutureBuilder accepts
+   firebase initialization using `final initialization = Firebase.initializeApp();`.
+
+   And `builder` property shows CircularProgress indicator if app is waiting for internet
+   connection otherwise it return `MaterialApp`. MaterialApp has some theming properties of app
+   and its `home` argument is calling `CheckStatus` widget from `check_status.dart` file.
+
     ```dart 
-            home: FutureBuilder(
-              future: checkLoginStatus(),
-              builder: (context, snapshot) {
-                if (snapshot.data == false) {
-                  return const Login();
-                }
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Container(
-                    color: Colors.white,
-                    child: const Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                  );
-                }
-                return const Profile();
-              },
+      FutureBuilder(
+        future: initialization,
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            debugPrint('Something Went Wrong');
+          }
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          return MaterialApp(
+            title: 'Flutter Firebase EMail Password Auth',
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+              primarySwatch: Colors.teal,
+              textTheme: const TextTheme(
+                bodyMedium: TextStyle(fontSize: 16),
+                titleMedium: TextStyle(fontSize: 24),
+              ),
+              appBarTheme: const AppBarTheme(
+                centerTitle: true,
+                titleTextStyle: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              elevatedButtonTheme: ElevatedButtonThemeData(
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size(150, 40),
+                  textStyle: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              textButtonTheme: TextButtonThemeData(
+                style: ElevatedButton.styleFrom(
+                  textStyle: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
             ),
+            home: const CheckStatus(),
           );
+        },
+      );
     ```
-   `Future` property of `FutureBuilder` returns a boolean method `checkLoginStatus()` to check the user id `_storage.read(key: 'uid')` of a user for auto login purpose.
-    ```dart  
-   Future<bool> checkLoginStatus() async {
-    final value = await _storage.read(key: 'uid');
-    if (value == null) {
-      return false;
-       }
-    return true;
-    }
-   ```
-    - `singup.dart` uses `registration()` method to register a new user.
-    ```dart  
-   registration() async {
-    if (password == confirmPassword) {
-      try {
-        final userCredential = await FirebaseAuth.instance
-            .createUserWithEmailAndPassword(email: email, password: password);
-        debugPrint(userCredential.toString());
-        if (!mounted) return;
+
+5. `check_status.dart` contains `FutureBuilder` like in `main.dart`.
+
+`Future` property of `FutureBuilder` returns a boolean method `checkLoginStatus()` to check the
+user id `storage.read(key: 'uid')` of a user for auto login purpose.
+
+ ```dart
+  Future<bool> checkLoginStatus() async {
+  final uid = await storage.read(key: 'uid');
+  debugPrint('CheckStatus => uid: $uid');
+  if (uid == null) {
+    debugPrint('CheckStatus => UID returned false');
+    return false;
+  }
+  debugPrint('CheckStatus => UID returned true');
+  return true;
+}
+```
+
+If `future` of `check_status.dart` returns false . It means there is no uid stored in storage of
+phone using flutter_secure_storage. Ultimately it will go to `Login` screen in `login.dart` file.
+
+If `future` return true, it means uid is stored in phone storage and hence user will be logged in
+automatically.
+
+6. In `singup.dart`, initialize the following:
+
+```dart
+
+final formKey = GlobalKey<FormState>();
+var email = '';
+var password = '';
+var confirmPassword = '';
+final emailController = TextEditingController();
+final passwordController = TextEditingController();
+final confirmPasswordController = TextEditingController();
+```
+
+It uses `registration()` method to register a new user.
+
+ ```dart
+ registerNewUser() async {
+  if (password == confirmPassword) {
+    try {
+      final userCredentials = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: password);
+      debugPrint('UserCredentials: $userCredentials');
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          backgroundColor: Colors.redAccent,
+          content: Text(
+            'Registered Successfully. Please Login...',
+            style: TextStyle(fontSize: 20.0),
+          ),
+        ),
+      );
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const Login(),
+        ),
+      );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        debugPrint('Password Provided is too Weak');
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            backgroundColor: Colors.redAccent,
+            backgroundColor: Colors.orangeAccent,
             content: Text(
-              'Registered Successfully. Please Login..',
-              style: TextStyle(fontSize: 20.0),
+              'Password Provided is too Weak',
+              style: TextStyle(fontSize: 18.0, color: Colors.black),
             ),
           ),
         );
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const Login(),
+      } else if (e.code == 'email-already-in-use') {
+        debugPrint('Account Already exists');
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            backgroundColor: Colors.orangeAccent,
+            content: Text(
+              'Account Already exists',
+              style: TextStyle(fontSize: 18.0, color: Colors.black),
+            ),
           ),
         );
-      } on FirebaseAuthException catch (e) {
-        if (e.code == 'weak-password') {
-          debugPrint('Password Provided is too Weak');
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              backgroundColor: Colors.orangeAccent,
-              content: Text(
-                'Password Provided is too Weak',
-                style: TextStyle(fontSize: 18.0, color: Colors.black),
-              ),
-            ),
-          );
-        } else if (e.code == 'email-already-in-use') {
-          debugPrint('Account Already exists');
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              backgroundColor: Colors.orangeAccent,
-              content: Text(
-                'Account Already exists',
-                style: TextStyle(fontSize: 18.0, color: Colors.black),
-              ),
-            ),
-          );
-        }
       }
-    } else {
-      debugPrint('Password and Confirm Password doesn\'t match');
+    }
+  } else {
+    debugPrint('Password and Confirm Password doesn\'t match');
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        backgroundColor: Colors.orangeAccent,
+        content: Text(
+          'Password and Confirm Password doesn\'t match',
+          style: TextStyle(
+            fontSize: 16.0,
+            color: Colors.black,
+          ),
+        ),
+      ),
+    );
+  }
+}
+ ```
+
+Code for SignUp button is here:
+
+```dart 
+               ElevatedButton(
+                    onPressed: () {
+                      if (formKey.currentState!.validate()) {
+                        setState(() {
+                          email = emailController.text;
+                          password = passwordController.text;
+                          confirmPassword = confirmPasswordController.text;
+                        });
+                        registerNewUser();
+                      }
+                    },
+                    child: const Text(
+                      'Sign Up',
+                      style: TextStyle(fontSize: 18.0),
+                    ),
+                  ),
+```
+
+It uses `TextFormField` (for email, password, confirm password) and `Form` widgets to get
+email, password and confirm password from user.
+
+7. In `login.dart`, initialize the following:
+
+```dart
+
+final formKey = GlobalKey<FormState>();
+String userEmail = '';
+String userPassword = '';
+final emailController = TextEditingController(text: '');
+final passwordController = TextEditingController(text: '');
+
+final storage = const FlutterSecureStorage();
+
+bool rememberMe = false;
+```
+
+Remember me button of this screen saves the uid, email, and password of a user using
+flutter_secure_storage.
+
+After successful login, if user logout from profile screen then uid of that user is deleted using
+flutter_secure_storage but email and password are kept to autofill the email and password fields
+when user return to the login screen or whenever he opens the login screen.
+
+If again, user checks the remember me button, then uid will be saved using package and will not be
+deleted until user logout.
+
+`loginUser()` and `getUserDetail()` methods with initState are blow.
+
+- `loginUser()` method logins in the user in firebase and app using try-catch block to catch errors.
+
+  By default, rememberMe is false. If it is true then uid, email, and password of user are saved
+  using `storage.write` of flutter_secure_storage.
+
+- `getUserDetail()` is being called in initState() method and checks if there is email and password
+  saved in storage of phone using flutter_secure_storage. If they are saved then autofill the
+  TextFormFields of email and password in login screen when it opens.
+
+```dart
+  @override
+void initState() {
+  super.initState();
+  getUserDetail();
+}
+
+@override
+void dispose() {
+  emailController.dispose();
+  passwordController.dispose();
+  super.dispose();
+}
+
+void getUserDetail() async {
+  final email = await storage.read(key: 'email');
+  final password = await storage.read(key: 'password');
+  debugPrint('Login => userEmail: $email');
+  debugPrint('Login => userPassword: $password');
+  if (email != null && password != null) {
+    emailController.text = email;
+    passwordController.text = password;
+  }
+}
+
+loginUser() async {
+  try {
+    final userCredential = await FirebaseAuth.instance
+        .signInWithEmailAndPassword(email: userEmail, password: userPassword);
+    debugPrint('uid: ${userCredential.user?.uid}');
+    if (rememberMe) {
+      await storage.write(key: 'uid', value: userCredential.user?.uid);
+      await storage.write(key: 'email', value: userEmail);
+      await storage.write(key: 'password', value: userPassword);
+    }
+    if (!mounted) return;
+    Navigator.pushAndRemoveUntil(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, _, __) => const Profile(),
+      ),
+          (route) => false,
+    );
+  } on FirebaseAuthException catch (e) {
+    if (e.code == 'user-not-found') {
+      debugPrint('No User Found for that Email');
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           backgroundColor: Colors.orangeAccent,
           content: Text(
-            'Password and Confirm Password doesn\'t match',
-            style: TextStyle(
-              fontSize: 16.0,
-              color: Colors.black,
-            ),
+            'No User Found for that Email',
+            style: TextStyle(fontSize: 18.0, color: Colors.black),
+          ),
+        ),
+      );
+    } else if (e.code == 'wrong-password') {
+      debugPrint('Wrong Password Provided by User');
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          backgroundColor: Colors.orangeAccent,
+          content: Text(
+            'Wrong Password Provided by User',
+            style: TextStyle(fontSize: 18.0, color: Colors.black),
           ),
         ),
       );
     }
-   }
-    ```
-    It also uses `TextFormField` (for email, password, confirm password) and `Form` widgets to get email and password of a user. Then it gets user to the login screen.
-    - In `login.dart`, `userLogin()` contains `storage.write(key: "uid", value: userCredential.user?.uid)` to store the user id for auto login next time the user opens the app.
-    ```dart
-    userLogin() async {
-    try {
-      final userCredential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password);
-      debugPrint(userCredential.user?.uid);
-      await _storage.write(key: 'uid', value: userCredential.user?.uid);
-      if (!mounted) return;
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const Profile(),
-        ),
-      );
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        debugPrint('No User Found for that Email');
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            backgroundColor: Colors.orangeAccent,
-            content: Text(
-              'No User Found for that Email',
-              style: TextStyle(fontSize: 18.0, color: Colors.black),
-            ),
-          ),
-        );
-      } else if (e.code == 'wrong-password') {
-        debugPrint('Wrong Password Provided by User');
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            backgroundColor: Colors.orangeAccent,
-            content: Text(
-              'Wrong Password Provided by User',
-              style: TextStyle(fontSize: 18.0, color: Colors.black),
-            ),
-          ),
-        );
-      }
-    }
-   }
-   ```
-   It also uses `TextFormField` and `Form` widgets to accept the user email and password to login and save the credentials.
-    - `forgot_password.dart` uses `FirebaseAuth.instance.sendPasswordResetEmail(email: email)` to reset password of a user by accepting his email address.
-    ```dart
-    Future<bool> checkLoginStatus() async {
-    String? value = await _storage.read(key: "uid");
-    if (value == null) {
-      return false;
-    }
-    return true;
-    }
-    ```
-   - `profile.dart` contains user id, email and date created of a user.
-5. `secure_storage_official.dart` covers all properties of Flutter Secure Storage Plugin like read, write, delete, read all, and delete all.
+  }
+}
+```
+
+It uses `TextFormField` and `Form` widgets to accept the user email and password to validate and
+login user.
+
+8. `profile.dart` contains user id, email and date created of a user.
+
+9. `forgot_password.dart` uses `FirebaseAuth.instance.sendPasswordResetEmail(email: email)` to
+   reset password of a user by accepting his email address and sending link of reset password to
+   user's registered email address.
