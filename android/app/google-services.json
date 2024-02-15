@@ -1,36 +1,26 @@
 {
   "project_info": {
-    "project_number": "44387555992",
-    "project_id": "fir-auth-f4579",
-    "storage_bucket": "fir-auth-f4579.appspot.com"
+    "project_number": "137812451181",
+    "project_id": "flutter--storage-33b33",
+    "storage_bucket": "flutter--storage-33b33.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:44387555992:android:e04b953aa177bb0ce20eed",
+        "mobilesdk_app_id": "1:137812451181:android:de8c54430a6866ca63c464",
         "android_client_info": {
           "package_name": "com.example.flutter_secure_storage_plugin"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "44387555992-sap3k5fkh0k7gbt2m3mlagrg1191ckbr.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCea0GdrMY_P_TQjIda2fScmHtLdt8FCKM"
+          "current_key": "AIzaSyDysf4OdFPfUHpAup474xRrPPQokOZfwSE"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "44387555992-sap3k5fkh0k7gbt2m3mlagrg1191ckbr.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

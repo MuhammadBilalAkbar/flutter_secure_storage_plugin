@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage_plugin/firebase_options.dart';
 
 import 'check_status.dart';
 
@@ -11,14 +12,15 @@ void main() {
 class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key);
 
-  final initialization = Firebase.initializeApp();
+  final initialization =
+      Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   @override
   Widget build(BuildContext context) => FutureBuilder(
         future: initialization,
         builder: (context, snapshot) {
           if (snapshot.hasError) {
-            debugPrint('Something Went Wrong');
+            debugPrint('Error: Something Went Wrong');
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
@@ -34,18 +36,21 @@ class MyApp extends StatelessWidget {
               ),
               appBarTheme: const AppBarTheme(
                 centerTitle: true,
+                backgroundColor: Colors.blue,
                 titleTextStyle: TextStyle(
-                  fontSize: 30,
+                  fontSize: 40,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               elevatedButtonTheme: ElevatedButtonThemeData(
                 style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(150, 40),
+                  minimumSize: const Size(200, 60),
                   textStyle: const TextStyle(
-                    fontSize: 20,
+                    fontSize: 30,
                     fontWeight: FontWeight.bold,
                   ),
+                  backgroundColor: Colors.blue,
+                  foregroundColor: Colors.white,
                 ),
               ),
               textButtonTheme: TextButtonThemeData(
