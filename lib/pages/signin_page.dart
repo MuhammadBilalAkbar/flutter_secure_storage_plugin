@@ -18,8 +18,6 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final formKey = GlobalKey<FormState>();
-  String userEmail = '';
-  String userPassword = '';
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -44,7 +42,7 @@ class _LoginState extends State<Login> {
     final uid = await storage.read(key: 'uid');
     final email = await storage.read(key: 'email');
     final password = await storage.read(key: 'password');
-    debugPrint('READ => userId: $uid, userEmail: $email, password: $password');
+    debugPrint('READ => uid: $uid userEmail: $email, password: $password');
     if (email != null && password != null) {
       emailController.text = email;
       passwordController.text = password;
@@ -53,13 +51,17 @@ class _LoginState extends State<Login> {
 
   loginUser() async {
     try {
-      final userCredential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: userEmail, password: userPassword);
-      debugPrint('uid: ${userCredential.user?.uid}');
+      final userCredential =
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
+      );
+      final userId = userCredential.user?.uid;
+      debugPrint('uid: $userId');
       if (rememberMe) {
-        await storage.write(key: 'uid', value: userCredential.user?.uid);
-        await storage.write(key: 'email', value: userEmail);
-        await storage.write(key: 'password', value: userPassword);
+        await storage.write(key: 'uid', value: userId);
+        await storage.write(key: 'email', value: emailController.text);
+        await storage.write(key: 'password', value: passwordController.text);
       }
       if (!mounted) return;
       Navigator.pushAndRemoveUntil(
@@ -135,10 +137,6 @@ class _LoginState extends State<Login> {
                   ElevatedButton(
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
-                        setState(() {
-                          userEmail = emailController.text;
-                          userPassword = passwordController.text;
-                        });
                         loginUser();
                       }
                     },

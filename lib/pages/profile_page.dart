@@ -22,7 +22,6 @@ class ProfileState extends State<Profile> {
   final storage = const FlutterSecureStorage();
 
   verifyEmail() async {
-    // debugPrint('Profile Screen uid: $uid');
     if (user != null && !user!.emailVerified) {
       await user!.sendEmailVerification();
       debugPrint('Verification Email has been sent.');
@@ -52,7 +51,7 @@ class ProfileState extends State<Profile> {
               GestureDetector(
                 onTap: () async {
                   await FirebaseAuth.instance.signOut();
-                  await storage.delete(key: 'uid');
+                  // await storage.delete(key: 'uid');
                   if (!mounted) return;
                   Navigator.pushAndRemoveUntil(
                     context,
