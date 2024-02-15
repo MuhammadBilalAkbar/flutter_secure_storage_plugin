@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_secure_storage_plugin/widgets/show_snackbar.dart';
 
+import '../widgets/show_snackbar.dart';
 import '../widgets/text_button_builder.dart';
 import '../widgets/text_field_builder.dart';
 import 'forgot_password_page.dart';

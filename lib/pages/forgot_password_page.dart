@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_secure_storage_plugin/widgets/text_field_builder.dart';
 
 import '../widgets/show_snackbar.dart';
 import 'signin_page.dart';
@@ -42,8 +43,6 @@ class ForgotPasswordState extends State<ForgotPassword> {
     }
   }
 
-
-
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
@@ -68,17 +67,9 @@ class ForgotPasswordState extends State<ForgotPassword> {
                     children: [
                       Container(
                         margin: const EdgeInsets.only(bottom: 10.0),
-                        child: TextFormField(
-                          autofocus: false,
-                          decoration: const InputDecoration(
-                            labelText: 'Enter your email address',
-                            border: OutlineInputBorder(),
-                            errorStyle: TextStyle(
-                              color: Colors.redAccent,
-                              fontSize: 15,
-                            ),
-                          ),
-                          controller: emailController,
+                        child: TextFieldBuilder(
+                          emailController: emailController,
+                          labelText: 'Enter your email address',
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Please Enter Email';
