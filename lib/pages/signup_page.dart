@@ -28,8 +28,7 @@ class SignupState extends State<Signup> {
     super.dispose();
   }
 
-  void registerNewUser() async {
-    // if (password == confirmPassword) {
+  Future<void> registerNewUser() async {
     if (passwordController.text == confirmPasswordController.text) {
       try {
         final userCredentials =

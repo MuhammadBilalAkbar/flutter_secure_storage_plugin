@@ -36,7 +36,7 @@ class _SignInPageState extends State<SignInPage> {
     super.dispose();
   }
 
-  void getUserDetail() async {
+  Future<void> getUserDetail() async {
     final uid = await UserSecureStorage.read('uid');
     final email = await UserSecureStorage.read('email');
     final password = await UserSecureStorage.read('password');
@@ -47,7 +47,7 @@ class _SignInPageState extends State<SignInPage> {
     }
   }
 
-  signInUser() async {
+  Future<void> signInUser() async {
     try {
       final userCredential =
           await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -133,8 +133,7 @@ class _SignInPageState extends State<SignInPage> {
                   children: [
                     Checkbox(
                       value: rememberMe,
-                      onChanged: (value) =>
-                          setState(() => rememberMe = value!),
+                      onChanged: (value) => setState(() => rememberMe = value!),
                       activeColor: Colors.blue,
                     ),
                     const Text("Remember Me")

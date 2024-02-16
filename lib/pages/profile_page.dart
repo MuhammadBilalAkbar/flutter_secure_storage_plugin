@@ -19,7 +19,7 @@ class ProfilePageState extends State<ProfilePage> {
 
   final user = FirebaseAuth.instance.currentUser;
 
-  verifyEmail() async {
+  Future<void> verifyEmail() async {
     if (user != null && !user!.emailVerified) {
       await user!.sendEmailVerification();
       debugPrint('Verification Email has been sent.');
@@ -30,7 +30,7 @@ class ProfilePageState extends State<ProfilePage> {
     }
   }
 
-  void getUserDetail() async {
+  Future<void> getUserDetail() async {
     final userId = await UserSecureStorage.read('uid');
     final email = await UserSecureStorage.read('email');
     final password = await UserSecureStorage.read('password');
