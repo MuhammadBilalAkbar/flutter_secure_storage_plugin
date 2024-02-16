@@ -4,14 +4,8 @@ import 'package:flutter_secure_storage_plugin/utils/user_secure_storage.dart';
 import '../pages/signin_page.dart';
 import '../pages/profile_page.dart';
 
-class CheckStatus extends StatefulWidget {
+class CheckStatus extends StatelessWidget {
   const CheckStatus({Key? key}) : super(key: key);
-
-  @override
-  CheckStatusState createState() => CheckStatusState();
-}
-
-class CheckStatusState extends State<CheckStatus> {
 
   Future<bool> checkLoginStatus() async {
     final uid = await UserSecureStorage.read('uid');

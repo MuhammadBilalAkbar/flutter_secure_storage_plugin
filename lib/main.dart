@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
             title: 'Flutter Firebase EMail Password Auth',
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
-              primarySwatch: Colors.teal,
+              primarySwatch: Colors.blue,
               textTheme: const TextTheme(
                 bodyMedium: TextStyle(fontSize: 16),
                 titleMedium: TextStyle(fontSize: 24),
