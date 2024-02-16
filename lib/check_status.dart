@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:flutter_secure_storage_plugin/utils/user_secure_storage.dart';
 
-import 'pages/signin_page.dart';
-import 'pages/profile_page.dart';
+import '../pages/signin_page.dart';
+import '../pages/profile_page.dart';
 
 class CheckStatus extends StatefulWidget {
   const CheckStatus({Key? key}) : super(key: key);
@@ -12,10 +12,9 @@ class CheckStatus extends StatefulWidget {
 }
 
 class CheckStatusState extends State<CheckStatus> {
-  final storage = const FlutterSecureStorage();
 
   Future<bool> checkLoginStatus() async {
-    final uid = await storage.read(key: 'uid');
+    final uid = await UserSecureStorage.read('uid');
     debugPrint('uid: $uid');
     if (uid == null) {
       return false;
@@ -28,12 +27,12 @@ class CheckStatusState extends State<CheckStatus> {
         future: checkLoginStatus(),
         builder: (context, snapshot) {
           if (snapshot.data == false) {
-            return const Login();
+            return const SignInPage();
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
-          return const Profile();
+          return const ProfilePage();
         },
       );
 }

@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage_plugin/firebase_options.dart';
 
+import 'firebase_options.dart';
 import 'check_status.dart';
 
 void main() {

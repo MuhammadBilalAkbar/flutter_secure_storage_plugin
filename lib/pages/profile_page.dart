@@ -1,25 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:flutter_secure_storage_plugin/widgets/show_snackbar.dart';
 
-import 'signin_page.dart';
+import '../utils/user_secure_storage.dart';
+import '../widgets/show_snackbar.dart';
+import '../pages/signin_page.dart';
 
-class Profile extends StatefulWidget {
-  const Profile({Key? key}) : super(key: key);
+class ProfilePage extends StatefulWidget {
+  const ProfilePage({Key? key}) : super(key: key);
 
   @override
-  ProfileState createState() => ProfileState();
+  ProfilePageState createState() => ProfilePageState();
 }
 
-class ProfileState extends State<Profile> {
+class ProfilePageState extends State<ProfilePage> {
   final uid = FirebaseAuth.instance.currentUser!.uid;
   final email = FirebaseAuth.instance.currentUser!.email;
   final creationTime = FirebaseAuth.instance.currentUser!.metadata.creationTime;
 
   final user = FirebaseAuth.instance.currentUser;
-
-  final storage = const FlutterSecureStorage();
 
   verifyEmail() async {
     if (user != null && !user!.emailVerified) {
@@ -33,9 +31,9 @@ class ProfileState extends State<Profile> {
   }
 
   void getUserDetail() async {
-    final userId = await storage.read(key: 'uid');
-    final email = await storage.read(key: 'email');
-    final password = await storage.read(key: 'password');
+    final userId = await UserSecureStorage.read('uid');
+    final email = await UserSecureStorage.read('email');
+    final password = await UserSecureStorage.read('password');
     debugPrint('Profile => userId: $userId');
     debugPrint('Profile => email: $email');
     debugPrint('Profile => password: $password');
@@ -51,12 +49,12 @@ class ProfileState extends State<Profile> {
               GestureDetector(
                 onTap: () async {
                   await FirebaseAuth.instance.signOut();
-                  // await storage.delete(key: 'uid');
+                  await UserSecureStorage.delete('uid');
                   if (!mounted) return;
                   Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const Login(),
+                      builder: (context) => const SignInPage(),
                     ),
                     (route) => false,
                   );

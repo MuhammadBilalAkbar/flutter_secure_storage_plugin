@@ -1,22 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_secure_storage_plugin/widgets/text_field_builder.dart';
 
+import '../widgets/text_field_builder.dart';
 import '../widgets/show_snackbar.dart';
-import 'signin_page.dart';
-import 'signup_page.dart';
+import '../pages/signin_page.dart';
+import '../pages/signup_page.dart';
 
-class ForgotPassword extends StatefulWidget {
-  const ForgotPassword({Key? key}) : super(key: key);
+class ForgotPasswordPage extends StatefulWidget {
+  const ForgotPasswordPage({Key? key}) : super(key: key);
 
   @override
-  ForgotPasswordState createState() => ForgotPasswordState();
+  ForgotPasswordPageState createState() => ForgotPasswordPageState();
 }
 
-class ForgotPasswordState extends State<ForgotPassword> {
+class ForgotPasswordPageState extends State<ForgotPasswordPage> {
   final formKey = GlobalKey<FormState>();
-
-  var email = '';
 
   final emailController = TextEditingController();
 
@@ -28,7 +26,9 @@ class ForgotPasswordState extends State<ForgotPassword> {
 
   resetPassword() async {
     try {
-      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+      await FirebaseAuth.instance.sendPasswordResetEmail(
+        email: emailController.text,
+      );
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         showSnackBar('Password Reset Email has been sent!'),
@@ -85,12 +85,8 @@ class ForgotPasswordState extends State<ForgotPassword> {
                         children: [
                           ElevatedButton(
                             onPressed: () {
-                              if (formKey.currentState!.validate()) {
-                                setState(() {
-                                  email = emailController.text;
-                                });
+                              if (formKey.currentState!.validate())
                                 resetPassword();
-                              }
                             },
                             child: const Text('Send Email'),
                           ),
@@ -100,7 +96,7 @@ class ForgotPasswordState extends State<ForgotPassword> {
                                 context,
                                 PageRouteBuilder(
                                   pageBuilder: (context, _, __) =>
-                                      const Login(),
+                                      const SignInPage(),
                                 ),
                                 (route) => false,
                               ),

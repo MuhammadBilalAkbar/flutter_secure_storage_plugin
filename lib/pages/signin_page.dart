@@ -1,27 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_secure_storage_plugin/utils/user_secure_storage.dart';
 
 import '../widgets/show_snackbar.dart';
 import '../widgets/text_button_builder.dart';
 import '../widgets/text_field_builder.dart';
-import 'forgot_password_page.dart';
-import 'profile_page.dart';
-import 'signup_page.dart';
+import '../pages/forgot_password_page.dart';
+import '../pages/profile_page.dart';
+import '../pages/signup_page.dart';
 
-class Login extends StatefulWidget {
-  const Login({Key? key}) : super(key: key);
+class SignInPage extends StatefulWidget {
+  const SignInPage({Key? key}) : super(key: key);
 
   @override
-  State<Login> createState() => _LoginState();
+  State<SignInPage> createState() => _SignInPageState();
 }
 
-class _LoginState extends State<Login> {
+class _SignInPageState extends State<SignInPage> {
   final formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-
-  final storage = const FlutterSecureStorage();
 
   bool rememberMe = false;
 
@@ -39,9 +37,9 @@ class _LoginState extends State<Login> {
   }
 
   void getUserDetail() async {
-    final uid = await storage.read(key: 'uid');
-    final email = await storage.read(key: 'email');
-    final password = await storage.read(key: 'password');
+    final uid = await UserSecureStorage.read('uid');
+    final email = await UserSecureStorage.read('email');
+    final password = await UserSecureStorage.read('password');
     debugPrint('READ => uid: $uid userEmail: $email, password: $password');
     if (email != null && password != null) {
       emailController.text = email;
@@ -59,15 +57,16 @@ class _LoginState extends State<Login> {
       final userId = userCredential.user?.uid;
       debugPrint('uid: $userId');
       if (rememberMe) {
-        await storage.write(key: 'uid', value: userId);
-        await storage.write(key: 'email', value: emailController.text);
-        await storage.write(key: 'password', value: passwordController.text);
+        await UserSecureStorage.write('uid', value: userId!);
+        await UserSecureStorage.write('email', value: emailController.text);
+        await UserSecureStorage.write('password',
+            value: passwordController.text);
       }
       if (!mounted) return;
       Navigator.pushAndRemoveUntil(
         context,
         PageRouteBuilder(
-          pageBuilder: (context, _, __) => const Profile(),
+          pageBuilder: (context, _, __) => const ProfilePage(),
         ),
         (route) => false,
       );
@@ -136,16 +135,14 @@ class _LoginState extends State<Login> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      if (formKey.currentState!.validate()) {
-                        loginUser();
-                      }
+                      if (formKey.currentState!.validate()) loginUser();
                     },
                     child: const Text('Login'),
                   ),
                   const Align(
                     alignment: Alignment.centerRight,
                     child: TextButtonBuilder(
-                      ForgotPassword(),
+                      ForgotPasswordPage(),
                       text: 'Forgot Password?',
                     ),
                   ),
