@@ -75,24 +75,25 @@ class ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () {
-                    if (formKey.currentState!.validate())
-                      resetPassword();
+                    if (formKey.currentState!.validate()) resetPassword();
                   },
                   child: const Text('Send Email'),
                 ),
-
-                TextButton(
-                  onPressed: () => {
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      PageRouteBuilder(
-                        pageBuilder: (context, _, __) =>
-                        const SignInPage(),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton(
+                    onPressed: () => {
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder: (context, _, __) =>
+                          const SignInPage(),
+                        ),
+                            (route) => false,
                       ),
-                          (route) => false,
-                    ),
-                  },
-                  child: const Text('Login'),
+                    },
+                    child: const Text('Sign In'),
+                  ),
                 ),
               ],
             ),

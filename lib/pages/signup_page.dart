@@ -43,7 +43,7 @@ class SignupState extends State<Signup> {
         debugPrint('UserCredentials: $userCredentials');
         if (!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
-          showSnackBar('Registered Successfully. Please Login...'),
+          showSnackBar('Registered Successfully. Please Sign In...'),
         );
         Navigator.pushReplacement(
           context,
@@ -132,7 +132,7 @@ class SignupState extends State<Signup> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text('Already have an Account?'),
-                    TextButtonBuilder(SignInPage(), text: 'Login'),
+                    TextButtonBuilder(SignInPage(), text: 'Sign In'),
                   ],
                 )
               ],

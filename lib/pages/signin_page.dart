@@ -47,7 +47,7 @@ class _SignInPageState extends State<SignInPage> {
     }
   }
 
-  loginUser() async {
+  signInUser() async {
     try {
       final userCredential =
           await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -88,7 +88,7 @@ class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: const Text('User Login'),
+          title: const Text('User Sign In'),
         ),
         body: Form(
           key: formKey,
@@ -142,9 +142,9 @@ class _SignInPageState extends State<SignInPage> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    if (formKey.currentState!.validate()) loginUser();
+                    if (formKey.currentState!.validate()) signInUser();
                   },
-                  child: const Text('Login'),
+                  child: const Text('Sign In'),
                 ),
                 const SizedBox(height: 20),
                 const Row(
