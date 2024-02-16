@@ -10,9 +10,7 @@ class CheckStatus extends StatelessWidget {
   Future<bool> checkLoginStatus() async {
     final uid = await UserSecureStorage.read('uid');
     debugPrint('uid: $uid');
-    if (uid == null) {
-      return false;
-    }
+    if (uid == null) return false;
     return true;
   }
 
