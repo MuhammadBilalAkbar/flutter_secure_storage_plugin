@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../widgets/text_field_builder.dart';
 import '../widgets/show_snackbar.dart';
 import '../pages/signin_page.dart';
-import '../pages/signup_page.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({Key? key}) : super(key: key);
