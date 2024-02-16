@@ -3,19 +3,22 @@ import 'package:flutter/material.dart';
 class TextFieldBuilder extends StatelessWidget {
   const TextFieldBuilder({
     super.key,
-    required this.emailController,
+    required this.controller,
     required this.labelText,
+    this.obscureText = false,
     required this.validator,
   });
 
-  final TextEditingController emailController;
+  final TextEditingController controller;
   final String labelText;
+  final bool obscureText;
   final String? Function(String?) validator;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: emailController,
+      controller: controller,
+      obscureText: obscureText,
       autofocus: false,
       style: const TextStyle(fontSize: 24),
       decoration: InputDecoration(

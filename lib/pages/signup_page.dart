@@ -81,60 +81,61 @@ class SignupState extends State<Signup> {
           key: formKey,
           child: Container(
             margin: const EdgeInsets.symmetric(horizontal: 20),
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  const SizedBox(height: 30),
-                  TextFieldBuilder(
-                    emailController: emailController,
-                    labelText: 'Enter your email address',
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please Enter Email';
-                      } else if (!value.contains('@')) {
-                        return 'Please Enter Valid Email';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 20),
-                  TextFieldBuilder(
-                    emailController: passwordController,
-                    labelText: 'Enter your password',
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please Enter Password';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 20),
-                  TextFieldBuilder(
-                    emailController: confirmPasswordController,
-                    labelText: 'Confirm your password',
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please Enter Password';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: () {
-                      if (formKey.currentState!.validate()) registerNewUser();
-                    },
-                    child: const Text('Sign Up'),
-                  ),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('Already have an Account?'),
-                      TextButtonBuilder(SignInPage(), text: 'Login'),
-                    ],
-                  )
-                ],
-              ),
+            child: ListView(
+              children: [
+                const SizedBox(height: 30),
+                TextFieldBuilder(
+                  controller: emailController,
+                  labelText: 'Enter your email address',
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please Enter Email';
+                    } else if (!value.contains('@')) {
+                      return 'Please Enter Valid Email';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 20),
+                TextFieldBuilder(
+                  controller: passwordController,
+                  obscureText: true,
+                  labelText: 'Enter your password',
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please Enter Password';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 20),
+                TextFieldBuilder(
+                  controller: confirmPasswordController,
+                  obscureText: true,
+                  labelText: 'Confirm your password',
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please Enter Password';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () {
+                    if (formKey.currentState!.validate()) registerNewUser();
+                  },
+                  child: const Text('Sign Up'),
+                ),
+                const SizedBox(height: 20),
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('Already have an Account?'),
+                    TextButtonBuilder(SignInPage(), text: 'Login'),
+                  ],
+                )
+              ],
             ),
           ),
         ),

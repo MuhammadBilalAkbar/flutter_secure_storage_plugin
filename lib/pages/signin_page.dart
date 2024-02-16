@@ -94,70 +94,70 @@ class _SignInPageState extends State<SignInPage> {
           key: formKey,
           child: Container(
             margin: const EdgeInsets.symmetric(horizontal: 20),
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  const SizedBox(height: 50),
-                  TextFieldBuilder(
-                    emailController: emailController,
-                    labelText: 'Enter your email address',
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please Enter Email';
-                      } else if (!value.contains('@')) {
-                        return 'Please enter valid email';
-                      }
-                      return null;
-                    },
+            child: ListView(
+              children: [
+                const SizedBox(height: 30),
+                TextFieldBuilder(
+                  controller: emailController,
+                  labelText: 'Enter your email address',
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please Enter Email';
+                    } else if (!value.contains('@')) {
+                      return 'Please enter valid email';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 20),
+                TextFieldBuilder(
+                  controller: passwordController,
+                  labelText: 'Enter your password',
+                  obscureText: true,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please Enter Password';
+                    }
+                    return null;
+                  },
+                ),
+                const Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButtonBuilder(
+                    ForgotPasswordPage(),
+                    text: 'Forgot Password?',
                   ),
-                  const SizedBox(height: 20),
-                  TextFieldBuilder(
-                    emailController: passwordController,
-                    labelText: 'Enter your password',
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please Enter Password';
-                      }
-                      return null;
-                    },
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Checkbox(
-                        value: rememberMe,
-                        onChanged: (value) =>
-                            setState(() => rememberMe = value!),
-                        activeColor: Colors.blue,
-                      ),
-                      const Text("Remember Me")
-                    ],
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      if (formKey.currentState!.validate()) loginUser();
-                    },
-                    child: const Text('Login'),
-                  ),
-                  const Align(
-                    alignment: Alignment.centerRight,
-                    child: TextButtonBuilder(
-                      ForgotPasswordPage(),
-                      text: 'Forgot Password?',
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Checkbox(
+                      value: rememberMe,
+                      onChanged: (value) =>
+                          setState(() => rememberMe = value!),
+                      activeColor: Colors.blue,
                     ),
-                  ),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Don\'t have an account?',
-                        style: TextStyle(fontSize: 16),
-                      ),
-                      TextButtonBuilder(Signup(), text: 'Signup'),
-                    ],
-                  )
-                ],
-              ),
+                    const Text("Remember Me")
+                  ],
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    if (formKey.currentState!.validate()) loginUser();
+                  },
+                  child: const Text('Login'),
+                ),
+                const SizedBox(height: 20),
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Don\'t have an account?',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    TextButtonBuilder(Signup(), text: 'Signup'),
+                  ],
+                )
+              ],
             ),
           ),
         ),

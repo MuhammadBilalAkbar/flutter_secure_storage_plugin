@@ -48,91 +48,55 @@ class ForgotPasswordPageState extends State<ForgotPasswordPage> {
         appBar: AppBar(
           title: const Text('Reset Password'),
         ),
-        body: Column(
-          children: [
-            Container(
-              margin: const EdgeInsets.only(top: 20.0),
-              child: const Text(
-                'Reset Link will be sent to your email id!',
-                style: TextStyle(fontSize: 20),
-              ),
-            ),
-            Expanded(
-              child: Form(
-                key: formKey,
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
-                  child: ListView(
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.only(bottom: 10.0),
-                        child: TextFieldBuilder(
-                          emailController: emailController,
-                          labelText: 'Enter your email address',
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please Enter Email';
-                            } else if (!value.contains('@')) {
-                              return 'Please Enter Valid Email';
-                            }
-                            return null;
-                          },
-                        ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          ElevatedButton(
-                            onPressed: () {
-                              if (formKey.currentState!.validate())
-                                resetPassword();
-                            },
-                            child: const Text('Send Email'),
-                          ),
-                          TextButton(
-                            onPressed: () => {
-                              Navigator.pushAndRemoveUntil(
-                                context,
-                                PageRouteBuilder(
-                                  pageBuilder: (context, _, __) =>
-                                      const SignInPage(),
-                                ),
-                                (route) => false,
-                              ),
-                            },
-                            child: const Text('Login'),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text(
-                            'Don\'t have an Account?',
-                            style: TextStyle(fontSize: 20),
-                          ),
-                          TextButton(
-                            onPressed: () => {
-                              Navigator.pushAndRemoveUntil(
-                                context,
-                                PageRouteBuilder(
-                                  pageBuilder: (context, _, __) =>
-                                      const Signup(),
-                                ),
-                                (route) => false,
-                              ),
-                            },
-                            child: const Text('Signup'),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Form(
+            key: formKey,
+            child: ListView(
+              children: [
+                const SizedBox(height: 30),
+                const Text(
+                  'Reset Link will be sent to your email id!',
+                  style: TextStyle(fontSize: 16),
                 ),
-              ),
+                const SizedBox(height: 20),
+                TextFieldBuilder(
+                  controller: emailController,
+                  labelText: 'Enter your email address',
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please Enter Email';
+                    } else if (!value.contains('@')) {
+                      return 'Please Enter Valid Email';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () {
+                    if (formKey.currentState!.validate())
+                      resetPassword();
+                  },
+                  child: const Text('Send Email'),
+                ),
+
+                TextButton(
+                  onPressed: () => {
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder: (context, _, __) =>
+                        const SignInPage(),
+                      ),
+                          (route) => false,
+                    ),
+                  },
+                  child: const Text('Login'),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       );
 }
