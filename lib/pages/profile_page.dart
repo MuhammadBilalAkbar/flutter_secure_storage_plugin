@@ -13,11 +13,10 @@ class ProfilePage extends StatefulWidget {
 }
 
 class ProfilePageState extends State<ProfilePage> {
+  final user = FirebaseAuth.instance.currentUser;
   final uid = FirebaseAuth.instance.currentUser!.uid;
   final email = FirebaseAuth.instance.currentUser!.email;
   final creationTime = FirebaseAuth.instance.currentUser!.metadata.creationTime;
-
-  final user = FirebaseAuth.instance.currentUser;
 
   Future<void> verifyEmail() async {
     if (user != null && !user!.emailVerified) {
@@ -42,12 +41,18 @@ class ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text('User Profile'),
-              GestureDetector(
-                onTap: () async {
+          title: const Text('User Profile'),
+          centerTitle: false,
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 10),
+              child: IconButton(
+                icon: const Icon(
+                  Icons.logout,
+                  size: 30,
+                  color: Colors.white,
+                ),
+                onPressed: () async {
                   await FirebaseAuth.instance.signOut();
                   await UserSecureStorage.delete('uid');
                   if (!mounted) return;
@@ -59,14 +64,9 @@ class ProfilePageState extends State<ProfilePage> {
                     (route) => false,
                   );
                 },
-                child: const Icon(
-                  Icons.logout,
-                  size: 30,
-                  color: Colors.white,
-                ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
         body: Container(
           margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 30.0),
