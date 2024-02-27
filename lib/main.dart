@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           }
           return MaterialApp(
-            title: 'Flutter Firebase EMail Password Auth',
+            title: 'Flutter Secure Storage with Firebase Auth',
             debugShowCheckedModeBanner: false,
             theme: ThemeData(primarySwatch: Colors.blue),
             home: const CheckStatus(),
