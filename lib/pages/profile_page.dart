@@ -85,7 +85,12 @@ class ProfilePageState extends State<ProfilePage> {
                       ? const Text('verified')
                       : TextButton(
                           onPressed: verifyEmail,
-                          child: const Text('Verify Email'),
+                          child: const Text(
+                            'Verify Email',
+                            style: TextStyle(
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
                         ),
                 ],
               ),

@@ -28,7 +28,28 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             title: 'Flutter Secure Storage with Firebase Auth',
             debugShowCheckedModeBanner: false,
-            theme: ThemeData(primarySwatch: Colors.blue),
+            theme: ThemeData(
+              primarySwatch: Colors.blue,
+              appBarTheme: const AppBarTheme(
+                centerTitle: true,
+                backgroundColor: Color(0xff4c505b),
+                titleTextStyle: TextStyle(
+                  fontSize: 40,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              elevatedButtonTheme: ElevatedButtonThemeData(
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size(200, 60),
+                  textStyle: const TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  backgroundColor: const Color(0xff4c505b),
+                  foregroundColor: Colors.white,
+                ),
+              ),
+            ),
             home: const CheckStatus(),
           );
         },

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_secure_storage_plugin/widgets/build_text_button.dart';
 
 import '../widgets/filled_text_field.dart';
 import '../widgets/show_snackbar.dart';
@@ -124,23 +125,11 @@ class ForgotPasswordPageState extends State<ForgotPasswordPage> {
                             ],
                           ),
                           const SizedBox(height: 20),
-                          TextButton(
-                            onPressed: () => Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => const SignInPage(),
-                              ),
-                            ),
-                            child: const Text(
-                              'Sign In',
-                              style: TextStyle(
-                                decoration: TextDecoration.underline,
-                                decorationColor: color2,
-                                color: color2,
-                                fontSize: 18,
-                              ),
-                            ),
-                          )
+                          const BuildTextButton(
+                            color: color2,
+                            widget: SignInPage(),
+                            text: 'Sign In',
+                          ),
                         ],
                       ),
                     ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_secure_storage_plugin/utils/user_secure_storage.dart';
 
+import '../widgets/build_text_button.dart';
 import '../widgets/show_snackbar.dart';
 import '../widgets/filled_text_field.dart';
 import '../pages/forgot_password_page.dart';
@@ -189,42 +190,18 @@ class _SignInPageState extends State<SignInPage> {
                             ],
                           ),
                           const SizedBox(height: 20),
-                          Row(
+                          const Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              TextButton(
-                                onPressed: () => Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) => const SignupPage(),
-                                  ),
-                                ),
-                                child: const Text(
-                                  'Sign Up',
-                                  style: TextStyle(
-                                    decoration: TextDecoration.underline,
-                                    decorationColor: color2,
-                                    color: color2,
-                                    fontSize: 18,
-                                  ),
-                                ),
+                              BuildTextButton(
+                                text: 'Sign Up',
+                                color: color2,
+                                widget: SignupPage(),
                               ),
-                              TextButton(
-                                onPressed: () => Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) => const ForgotPasswordPage(),
-                                  ),
-                                ),
-                                child: const Text(
-                                  'Forgot Password?',
-                                  style: TextStyle(
-                                    decoration: TextDecoration.underline,
-                                    decorationColor: color2,
-                                    color: color2,
-                                    fontSize: 18,
-                                  ),
-                                ),
+                              BuildTextButton(
+                                text: 'Forgot Password?',
+                                color: color2,
+                                widget: ForgotPasswordPage(),
                               ),
                             ],
                           )

@@ -1,6 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import 'package:firebase_auth/firebase_auth.dart';
+
+import '../widgets/build_text_button.dart';
 import '../widgets/show_snackbar.dart';
 import '../pages/sign_in_page.dart';
 import '../widgets/transparent_text_field.dart';
@@ -107,100 +109,77 @@ class SignupPageState extends State<SignupPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Column(
+                          TransparentTextField(
+                            controller: emailController,
+                            labelText: 'Enter your email address',
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please Enter Email';
+                              } else if (!value.contains('@')) {
+                                return 'Please Enter Valid Email';
+                              }
+                              return null;
+                            },
+                          ),
+                          const SizedBox(height: 20),
+                          TransparentTextField(
+                            controller: passwordController,
+                            obscureText: true,
+                            labelText: 'Enter your password',
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please Enter Password';
+                              }
+                              return null;
+                            },
+                          ),
+                          const SizedBox(height: 20),
+                          TransparentTextField(
+                            controller: confirmPasswordController,
+                            obscureText: true,
+                            labelText: 'Confirm your password',
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please Confirm Password';
+                              }
+                              return null;
+                            },
+                          ),
+                          const SizedBox(height: 40),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              TransparentTextField(
-                                controller: emailController,
-                                labelText: 'Enter your email address',
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please Enter Email';
-                                  } else if (!value.contains('@')) {
-                                    return 'Please Enter Valid Email';
-                                  }
-                                  return null;
-                                },
+                              const Text(
+                                'Sign Up',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 27,
+                                  fontWeight: FontWeight.w700,
+                                ),
                               ),
-                              const SizedBox(height: 20),
-                              TransparentTextField(
-                                controller: passwordController,
-                                obscureText: true,
-                                labelText: 'Enter your password',
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please Enter Password';
-                                  }
-                                  return null;
-                                },
-                              ),
-                              const SizedBox(height: 20),
-                              TransparentTextField(
-                                controller: confirmPasswordController,
-                                obscureText: true,
-                                labelText: 'Confirm your password',
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please Confirm Password';
-                                  }
-                                  return null;
-                                },
-                              ),
-                              const SizedBox(height: 40),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const Text(
-                                    'Sign Up',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 27,
-                                      fontWeight: FontWeight.w700,
-                                    ),
+                              CircleAvatar(
+                                radius: 30,
+                                backgroundColor: color1,
+                                child: IconButton(
+                                  color: Colors.white,
+                                  onPressed: () {
+                                    if (formKey.currentState!.validate())
+                                      signUpUser();
+                                  },
+                                  icon: const Icon(
+                                    Icons.arrow_forward,
+                                    size: 30,
                                   ),
-                                  CircleAvatar(
-                                    radius: 30,
-                                    backgroundColor: color1,
-                                    child: IconButton(
-                                      color: Colors.white,
-                                      onPressed: () {
-                                        if (formKey.currentState!.validate())
-                                          signUpUser();
-                                      },
-                                      icon: const Icon(
-                                        Icons.arrow_forward,
-                                        size: 30,
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                              const SizedBox(height: 30),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  TextButton(
-                                    onPressed: () => Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (_) => const SignInPage(),
-                                      ),
-                                    ),
-                                    child: const Text(
-                                      'Sign In',
-                                      style: TextStyle(
-                                        decoration: TextDecoration.underline,
-                                        decorationColor: Colors.white,
-                                        color: Colors.white,
-                                        fontSize: 18,
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                                ),
                               )
                             ],
-                          )
+                          ),
+                          const SizedBox(height: 30),
+                          const BuildTextButton(
+                            color: Colors.white,
+                            widget: SignInPage(),
+                            text: 'Sign In',
+                          ),
                         ],
                       ),
                     ),
