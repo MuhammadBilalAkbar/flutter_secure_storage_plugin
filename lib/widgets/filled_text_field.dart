@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class TextFieldBuilder extends StatelessWidget {
-  const TextFieldBuilder({
+class FilledTextField extends StatelessWidget {
+  const FilledTextField({
     super.key,
     required this.controller,
     required this.labelText,
@@ -20,12 +20,19 @@ class TextFieldBuilder extends StatelessWidget {
       controller: controller,
       obscureText: obscureText,
       autofocus: false,
-      style: const TextStyle(fontSize: 24),
+      style: const TextStyle(fontSize: 24, color: Colors.black),
       decoration: InputDecoration(
         labelText: labelText,
-        labelStyle: const TextStyle(fontSize: 24),
+        fillColor: Colors.grey.shade100,
+        filled: true,
+        hintText: labelText,
+        labelStyle: const TextStyle(fontSize: 24, color: Color(0xff4c505b)),
         border: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(50)),
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(20),
+          borderSide: const BorderSide(color: Color(0xff4c505b), width: 2),
         ),
         errorStyle: const TextStyle(
           color: Colors.redAccent,

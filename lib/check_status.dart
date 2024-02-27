@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage_plugin/utils/user_secure_storage.dart';
 
-import '../pages/signin_page.dart';
+import '../pages/sign_in_page.dart';
 import '../pages/profile_page.dart';
 
 class CheckStatus extends StatelessWidget {

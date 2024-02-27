@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import '../utils/user_secure_storage.dart';
 import '../widgets/show_snackbar.dart';
-import '../pages/signin_page.dart';
+import '../pages/sign_in_page.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -55,7 +55,7 @@ class ProfilePageState extends State<ProfilePage> {
                 onPressed: () async {
                   await FirebaseAuth.instance.signOut();
                   await UserSecureStorage.delete('uid');
-                  if (!mounted) return;
+                  if (!context.mounted) return;
                   Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(

@@ -1,9 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../widgets/text_field_builder.dart';
+import '../widgets/filled_text_field.dart';
 import '../widgets/show_snackbar.dart';
-import '../pages/signin_page.dart';
+import '../pages/sign_in_page.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({Key? key}) : super(key: key);
@@ -42,59 +43,110 @@ class ForgotPasswordPageState extends State<ForgotPasswordPage> {
     }
   }
 
+  static const color1 = Color(0xff4c505b);
+  static const color2 = Color(0xff2596be);
+
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          title: const Text('Reset Password'),
+  Widget build(BuildContext context) => Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/signIn.png'),
+            fit: BoxFit.cover,
+          ),
         ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Form(
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          body: Form(
             key: formKey,
-            child: ListView(
-              children: [
-                const SizedBox(height: 30),
-                const Text(
-                  'Reset Link will be sent to your email id!',
-                  style: TextStyle(fontSize: 16),
-                ),
-                const SizedBox(height: 20),
-                TextFieldBuilder(
-                  controller: emailController,
-                  labelText: 'Enter your email address',
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please Enter Email';
-                    } else if (!value.contains('@')) {
-                      return 'Please Enter Valid Email';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: () {
-                    if (formKey.currentState!.validate()) resetPassword();
-                  },
-                  child: const Text('Send Email'),
-                ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: TextButton(
-                    onPressed: () => {
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        PageRouteBuilder(
-                          pageBuilder: (context, _, __) =>
-                          const SignInPage(),
-                        ),
-                            (route) => false,
+            child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 20),
+              child: Stack(
+                children: [
+                  Container(
+                    padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.15,
+                    ),
+                    child: const Text(
+                      'Reset Password',
+                      style: TextStyle(
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
                       ),
-                    },
-                    child: const Text('Sign In'),
+                    ),
                   ),
-                ),
-              ],
+                  SingleChildScrollView(
+                    child: Container(
+                      padding: EdgeInsets.only(
+                        top: MediaQuery.of(context).size.height * 0.45,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          FilledTextField(
+                            controller: emailController,
+                            labelText: 'Enter your email address',
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please Enter Email';
+                              } else if (!value.contains('@')) {
+                                return 'Please enter valid email';
+                              }
+                              return null;
+                            },
+                          ),
+                          const SizedBox(height: 40),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text(
+                                'Send Email',
+                                style: TextStyle(
+                                  fontSize: 27,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                              CircleAvatar(
+                                radius: 30,
+                                backgroundColor: color1,
+                                child: IconButton(
+                                  color: Colors.white,
+                                  onPressed: () {
+                                    if (formKey.currentState!.validate())
+                                      resetPassword();
+                                  },
+                                  icon: const Icon(
+                                    Icons.arrow_forward,
+                                    size: 30,
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                          const SizedBox(height: 20),
+                          TextButton(
+                            onPressed: () => Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const SignInPage(),
+                              ),
+                            ),
+                            child: const Text(
+                              'Sign In',
+                              style: TextStyle(
+                                decoration: TextDecoration.underline,
+                                decorationColor: color2,
+                                color: color2,
+                                fontSize: 18,
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
