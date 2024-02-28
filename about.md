@@ -16,7 +16,7 @@
     - flutter secure storage alternative
     - flutter secure storage not working
 
-- Video Title: Flutter Secu re Storage with Firebase Auth and Remember Me Function
+- Video Title: Flutter Secure Storage with Firebase Auth and Remember Me Function
 
 ## 2. Research: Competitors
 
