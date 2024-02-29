@@ -20,7 +20,7 @@
 
 ## 2. Research: Competitors
 
-Flutter Videos/Articles
+**Flutter Videos/Articles**
 
 - 5.7k:https://www.youtube.com/watch?v=GJqfmmwhw-c&pp=ygUeZmx1dHRlciBzZWN1cmUgc3RvcmFnZSBwYWNrYWdl
 - 2.2k: https://www.youtube.com/watch?v=ARsyjJkjSQU&pp=ygUeZmx1dHRlciBzZWN1cmUgc3RvcmFnZSBwYWNrYWdl
@@ -36,7 +36,7 @@ Flutter Videos/Articles
 - 2.2:https://www.youtube.com/watch?v=ARsyjJkjSQU&pp=ygUUc2VjdXJlIHN0b3JhZ2Ugc3dpZnQ%3D
 - 71k:https://www.youtube.com/watch?v=1TZlZkjzajU&pp=ygUUc2VjdXJlIHN0b3JhZ2Ugc3dpZnQ%3D
 
-Android/Swift/React Videos
+**Android/Swift/React Videos**
 
 - 5.7k:https://www.youtube.com/watch?v=GJqfmmwhw-c&pp=ygUeZmx5dHRlciBzZWN1cmUgc3RvcmFnZSBhbmRyb2lk
 - 27:https://www.youtube.com/watch?v=Oqhrxk_f1RE&pp=ygUeZmx5dHRlciBzZWN1cmUgc3RvcmFnZSBhbmRyb2lk
@@ -45,7 +45,7 @@ Android/Swift/React Videos
 - 1.3k:https://www.youtube.com/watch?v=LbitQCnppKw&pp=ygUbc2VjdXJlIHN0b3JhZ2UgcmVhY3QgbmF0aXZl
 - 144:https://www.youtube.com/watch?v=PwmqjqY_LRY&pp=ygUVc2VjdXJlIHN0b3JhZ2UgcmVhY3Qg
 
-Great Features
+**Great Features**
 
 - "flutter_secure_storage" package is commonly used in Flutter applications to securely store
   sensitive information such as authentication tokens, API keys, and other confidential data. It
@@ -54,11 +54,11 @@ Great Features
   protect sensitive information from being easily accessed if someone gains unauthorized access to
   the device.
 
-Problems from Videos
+**Problems from Videos**
 
 - NA
 
-Problems from Flutter Stackoverflow
+**Problems from Flutter Stackoverflow**
 
 - https://stackoverflow.com/questions/64920925/flutter-secure-storage-not-working-after-build-in-release-mode
 - https://stackoverflow.com/questions/tagged/flutter-secure-storage?tab=Votes
@@ -75,14 +75,14 @@ Problems from Flutter Stackoverflow
 
 ## 3. Video Structure
 
-Main Points / Purpose Of Lesson
+**Main Points / Purpose Of Lesson**
 
 1. Login and SignIn UI
 2. Firebase Integration using CLI
 3. Remember Me checkbox to save user detail like uid from firebase, email, and password via flutter
    secure storage
 
-The Structured Main Content
+**The Structured Main Content**
 
 1. Inside `main.dart` file, we are using FutureBuilder to initialize Firebase and avoid exceptions.
 2. For the home parameter, we are calling `CheckStatus` class. Inside it, we are again using
